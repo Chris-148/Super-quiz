@@ -9,6 +9,7 @@ import { FormQuestionsPage } from './pages/FormQuestionsPage'
 import { DetailsQuestionsPage } from './pages/DetailsQuestionsPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { Footer } from './components/Footer'
+import { AboutPage } from './pages/AboutPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,6 +26,7 @@ function App() {
         <Route path='/questions' element={<QuestionsPage/>}/>
         <Route path='/questions/form' element={<FormQuestionsPage/>}/>
         <Route path="/questions/details/:questionId" element={<DetailsQuestionsPage/>}/>
+        <Route path="/about" element={<AboutPage/>}/>
         <Route path="*" element={<NotFoundPage/>}/>
       </Routes>
      </div>

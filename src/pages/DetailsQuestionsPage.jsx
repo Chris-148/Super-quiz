@@ -1,20 +1,28 @@
-import axios, { all } from "axios";
-import { useEffect, useState } from "react";
+
+import { useEffect, useContext, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { QuestionsContext } from "../context/QuestionsContext";
 
 export const DetailsQuestionsPage = () => {
-  // initialize const for One Question and this setter
-  const [question, setQuestion] = useState({});
+
+  // take all questions from contexte and the function to find the question with this id
+  const { loading, findQuestionById } = useContext(QuestionsContext);
+
+  // console.log(questions)
   // initialize const for questionId from params url
   const { questionId } = useParams();
 
+  // initialize question
+  const  [question, setQuestion] = useState({});
+
   // recover the question data from db.json-server
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/question/${questionId}`)
-      .then((response) => setQuestion(response.data))
-      .catch((error) => console.log(error));
-  }, [questionId]);
+    
+    if(!loading){
+
+      setQuestion(findQuestionById(questionId));
+    }
+  }, [loading, questionId]);
   
   return (
     <>
@@ -24,11 +32,13 @@ export const DetailsQuestionsPage = () => {
         <ul className="mx-3">
           <li className="text-success">{question.good_answer}</li>
           {
+
           //  array?.map == optional chaining . so do the map only if array is undefined
           // this is like question.other_answer && question.other_answer.map()
                 question.other_answer?.map((answer, index) => (
               <li key={index} className="text-danger">{answer}</li>
             ))
+
           }
         </ul>
         <h4 className="text-end px-3 my-5">created by : {question.userId}</h4>

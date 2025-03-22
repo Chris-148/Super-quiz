@@ -1,25 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext} from 'react'
 import axios from 'axios'
+import { QuestionsContext } from '../context/QuestionsContext'
 
 export const QuestionsPage = () => {
 
 const [allQuestions, setAllQuestions] = useState ([])
+const {questions, loading } = useContext(QuestionsContext)
 const [searchTerm, setSearchTerm] = useState("")
 
 // API pull to get all questions
-useEffect(()=>{
-  async function getAllQuestions() {
-    try {
-      const response = await axios.get(`http://localhost:4000/question`)
-      console.log(response)
-      setAllQuestions(response.data)
-    } catch (err) {
-      console.log(`here is the error ${err}`)
-    }
-  }
+// useEffect(()=>{
+//   async function getAllQuestions() {
+//     try {
+//       const response = await axios.get(`http://localhost:4000/question`)
+//       console.log(response)
+//       setAllQuestions(response.data)
+//     } catch (err) {
+//       console.log(`here is the error ${err}`)
+//     }
+//   }
   
-  getAllQuestions()
-},[])
+//   getAllQuestions()
+// },[])
 
   return (
     <>
@@ -49,7 +51,7 @@ useEffect(()=>{
    
 
     {/*Mapping of all questions  */}
-    {allQuestions.map((oneQuestion)=>{
+    {questions?.map((oneQuestion)=>{
       return(
     <div key = {oneQuestion.id} className="d-flex flex-row p-2 justify-content-between align-items-center border border-primary border-2">
       <div>{oneQuestion.topic}</div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 export const Navbar = () => {
   return (
@@ -11,29 +12,27 @@ export const Navbar = () => {
     </button>
     <div className="collapse navbar-collapse" id="navbarColor01">
       <ul className="navbar-nav me-auto">
+        
         <li className="nav-item">
-          <a className="nav-link active" href="#">Home
-          </a>
+          <NavLink className="nav-link active" to={'/'}>Home
+          </NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Features</a>
+          <NavLink className="nav-link" to={"/questions"}>Questions</NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Pricing</a>
+          <NavLink className="nav-link" to={"/questions/form"}>Question Form</NavLink>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">About</a>
-        </li>
-        <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        {/* <li className="nav-item dropdown">
+          <NavLink className="nav-link dropdown-toggle" data-bs-toggle="dropdown" to="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</NavLink>
           <div className="dropdown-menu">
-            <a className="dropdown-item" href="#">Action</a>
-            <a className="dropdown-item" href="#">Another action</a>
-            <a className="dropdown-item" href="#">Something else here</a>
+            <NavLink className="dropdown-item" to="#">Action</NavLink>
+            <NavLink className="dropdown-item" to="#">Another action</NavLink>
+            <NavLink className="dropdown-item" to="#">Something else here</NavLink>
             <div className="dropdown-divider"></div>
-            <a className="dropdown-item" href="#">Separated link</a>
+            <NavLink className="dropdown-item" to="#">Separated link</NavLink>
           </div>
-        </li>
+        </li> */}
       </ul>
       <form className="d-flex">
         <input className="form-control me-sm-2" type="search" placeholder="Search"/>

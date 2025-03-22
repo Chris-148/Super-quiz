@@ -24,13 +24,24 @@ export const QuestionsProvider = ({ children }) => {
     return questions.find((question) => question.id == id);
   }
 
+  async function deleteQuestion(id){
+    try{
+        await axios.delete(`http://localhost:4000/question/${id}`)
+        // use latest version of the variable questions with prevQuestions to be sure to have all previous change
+        setQuestions((prevQuestions) => prevQuestions.filter((q) => q.id != id));
+    }catch(error)
+    {
+        console.log(error)
+    }
+  }
+
   //   we call the server just one time to take all questions
   useEffect(() => {
     fetchAllQuestions();
   }, []);
 
   return (
-    <QuestionsContext.Provider value={{ questions, findQuestionById , loading}}>
+    <QuestionsContext.Provider value={{ questions, findQuestionById, deleteQuestion , loading}}>
       {children}
     </QuestionsContext.Provider>
   );

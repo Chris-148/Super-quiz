@@ -1,19 +1,21 @@
 
 import { useEffect, useContext, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { QuestionsContext } from "../context/QuestionsContext";
 
 export const DetailsQuestionsPage = () => {
 
   // take all questions from contexte and the function to find the question with this id
-  const { loading, findQuestionById } = useContext(QuestionsContext);
+  const { loading, findQuestionById, deleteQuestion } = useContext(QuestionsContext);
 
-  // console.log(questions)
   // initialize const for questionId from params url
   const { questionId } = useParams();
 
   // initialize question
   const  [question, setQuestion] = useState({});
+
+  // initialize navigate
+  let nav = useNavigate()
 
   // recover the question data from db.json-server
   useEffect(() => {
@@ -23,9 +25,12 @@ export const DetailsQuestionsPage = () => {
       setQuestion(findQuestionById(questionId));
     }
   }, [loading, questionId]);
-  
+  if(!question){
+    nav('/questions')
+  }
   return (
     <>
+    
       <div className="container border border-2 border-primary m-5 p-5">
         <h2 className="text-center py-5 text-secondary">{question.question}</h2>
         <h3 className="px-3">Answer : </h3>
@@ -45,7 +50,10 @@ export const DetailsQuestionsPage = () => {
         <div className="d-flex justify-content-around">
           <Link to="/questions" className="btn btn-info">Go back to all Questions</Link>
           <Link to="/question/form" className="btn btn-warning">Update</Link>
-          <Link className="btn btn-danger">Delete</Link>
+          <button className="btn btn-danger" onClick={()=> {
+            deleteQuestion(question.id);
+            nav('/questions');
+          }}>Delete</button>
         </div>
       </div>
     </>

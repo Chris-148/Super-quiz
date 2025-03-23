@@ -34,14 +34,26 @@ export const QuestionsProvider = ({ children }) => {
         console.log(error)
     }
   }
-
+  
+  async function addQuestion(question)
+  {
+    try {
+      const response = await axios.post("http://localhost:4000/question", question)
+      alert("Question added successfully!")
+      // to add the new question insade the array state Questions 
+      setQuestions((prevQuestions) => [...prevQuestions, response.data]);
+      
+    } catch(error) {
+      console.log("Here is the error:", error);
+    }
+  }
   //   we call the server just one time to take all questions
   useEffect(() => {
     fetchAllQuestions();
   }, []);
 
   return (
-    <QuestionsContext.Provider value={{ questions, findQuestionById, deleteQuestion , loading}}>
+    <QuestionsContext.Provider value={{ questions, findQuestionById, deleteQuestion , loading, addQuestion}}>
       {children}
     </QuestionsContext.Provider>
   );

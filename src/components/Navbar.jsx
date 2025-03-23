@@ -23,6 +23,9 @@ export const Navbar = () => {
         <li className="nav-item">
           <NavLink className="nav-link" to={"/questions/form"}>Question Form</NavLink>
         </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to={"/quiz"}>Game Screen</NavLink>
+        </li>
         {/* <li className="nav-item dropdown">
           <NavLink className="nav-link dropdown-toggle" data-bs-toggle="dropdown" to="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</NavLink>
           <div className="dropdown-menu">

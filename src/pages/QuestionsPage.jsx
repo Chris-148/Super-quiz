@@ -4,8 +4,8 @@ import { QuestionsContext } from '../context/QuestionsContext'
 
 export const QuestionsPage = () => {
 
-const [allQuestions, setAllQuestions] = useState ([])
-const {questions, loading } = useContext(QuestionsContext)
+const [allQuestions, setAllQuestions, ] = useState ([])
+const {questions, loading , deleteQuestion} = useContext(QuestionsContext)
 const [searchTerm, setSearchTerm] = useState("")
 
 // API pull to get all questions
@@ -58,7 +58,7 @@ const [searchTerm, setSearchTerm] = useState("")
       <div>{oneQuestion.question}</div>
       <div>{oneQuestion.type}</div>
       <div>{oneQuestion.difficulty}</div>
-      <button className="btn btn-primary btn-lg">Delete</button>
+      <button className="btn btn-primary btn-lg" onClick={() => {deleteQuestion(oneQuestion.id)}}>Delete</button>
       <button className="btn btn-primary btn-lg">Update</button>  
     </div>
       )

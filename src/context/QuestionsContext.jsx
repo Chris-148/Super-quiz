@@ -6,6 +6,7 @@ export const QuestionsContext = createContext();
 export const QuestionsProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
+  // const [updateThisQuestion, setUpdateThisQuestion] = useState(null)
 
   // Function to have all questions
   async function fetchAllQuestions() {
@@ -35,6 +36,7 @@ export const QuestionsProvider = ({ children }) => {
     }
   }
   
+  // add question function
   async function addQuestion(question)
   {
     try {
@@ -47,13 +49,31 @@ export const QuestionsProvider = ({ children }) => {
       console.log("Here is the error:", error);
     }
   }
+
+// update question function
+async function updateQuestion(question)
+{
+  try {
+    const response = await axios.put(`http://localhost:4000/question/${question.id}`, question)
+    alert("Question update successfully!")
+    // to update the new question insade the array state Questions 
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((q) => (q.id == question.id ? response.data : q))
+    );
+
+  } catch(error) {
+    console.log("Here is the error:", error);
+  }
+}
+
+
   //   we call the server just one time to take all questions
   useEffect(() => {
     fetchAllQuestions();
   }, []);
 
   return (
-    <QuestionsContext.Provider value={{ questions, findQuestionById, deleteQuestion , loading, addQuestion}}>
+    <QuestionsContext.Provider value={{ questions, findQuestionById, deleteQuestion , loading, addQuestion, updateQuestion}}>
       {children}
     </QuestionsContext.Provider>
   );

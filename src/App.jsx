@@ -23,7 +23,10 @@ function App() {
         <Route path='/' element={<HomePage/>}/>
         <Route path='/quiz' element={<QuizPage/>}/>
         <Route path='/questions' element={<QuestionsPage/>}/>
+        {/* add question */}
         <Route path='/questions/form' element={<FormQuestionsPage/>}/>
+        {/* update question */}
+        <Route path='/questions/form/:questionId' element={<FormQuestionsPage/>}/>
         <Route path="/questions/details/:questionId" element={<DetailsQuestionsPage/>}/>
         <Route path="*" element={<NotFoundPage/>}/>
       </Routes>

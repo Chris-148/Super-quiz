@@ -1,68 +1,90 @@
-import React, { useEffect, useState, useContext} from 'react'
-import axios from 'axios'
-import { QuestionsContext } from '../context/QuestionsContext'
+import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import { QuestionsContext } from "../context/QuestionsContext";
+import { Link } from "react-router-dom";
 
 export const QuestionsPage = () => {
+  const [allQuestions, setAllQuestions] = useState([]);
+  const { questions, loading, deleteQuestion, setUpdateThisQuestion } =
+    useContext(QuestionsContext);
+  const [searchTerm, setSearchTerm] = useState("");
 
-const [allQuestions, setAllQuestions, ] = useState ([])
-const {questions, loading , deleteQuestion} = useContext(QuestionsContext)
-const [searchTerm, setSearchTerm] = useState("")
+  // API pull to get all questions
+  // useEffect(()=>{
+  //   async function getAllQuestions() {
+  //     try {
+  //       const response = await axios.get(`http://localhost:4000/question`)
+  //       console.log(response)
+  //       setAllQuestions(response.data)
+  //     } catch (err) {
+  //       console.log(`here is the error ${err}`)
+  //     }
+  //   }
 
-// API pull to get all questions
-// useEffect(()=>{
-//   async function getAllQuestions() {
-//     try {
-//       const response = await axios.get(`http://localhost:4000/question`)
-//       console.log(response)
-//       setAllQuestions(response.data)
-//     } catch (err) {
-//       console.log(`here is the error ${err}`)
-//     }
-//   }
-  
-//   getAllQuestions()
-// },[])
+  //   getAllQuestions()
+  // },[])
 
   return (
     <>
-    {/* {Searchbar input} */}
-    <div>
-      <input 
-      type="text" 
-      value={searchTerm} 
-      placeholder="Search Term" 
-      onChange={(event)=>{
-        setSearchTerm(event.target.value)}}     
-      />
+      {/* {Searchbar input} */}
+      <div>
+        <input
+          type="text"
+          value={searchTerm}
+          placeholder="Search Term"
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}
+        />
 
-    {/* {Filter Database} */}
-    {}
+        {/* {Filter Database} */}
+        {}
+      </div>
+      {/* here is the header for the questions */}
+      <div className="d-flex flex-row p-2 justify-content-between align-items-center border-secondary">
+        <div className="col-2">Topic</div>
+        <div className="col-3">Question</div>
+        <div className="col-2">Type</div>
+        <div className="col-2">Difficulty</div>
+        <div className="col-2"></div>
+        
+      </div>
 
-    </div>
-    {/* here is the header for the questions */}
-    <div className="d-flex flex-row p-2 justify-content-between align-items-center border-secondary">
-      <div>Topic</div>
-      <div>Question</div>
-      <div>Type</div>
-      <div>Difficulty</div>
-      <div></div>
-      <div></div>
-    </div>
-   
-
-    {/*Mapping of all questions  */}
-    {questions?.map((oneQuestion)=>{
-      return(
-    <div key = {oneQuestion.id} className="d-flex flex-row p-2 justify-content-between align-items-center border border-primary border-2">
-      <div>{oneQuestion.topic}</div>
-      <div>{oneQuestion.question}</div>
-      <div>{oneQuestion.type}</div>
-      <div>{oneQuestion.difficulty}</div>
-      <button className="btn btn-primary btn-lg" onClick={() => {deleteQuestion(oneQuestion.id)}}>Delete</button>
-      <button className="btn btn-primary btn-lg">Update</button>  
-    </div>
-      )
-    })}
+      {/*Mapping of all questions  */}
+      {questions?.map((oneQuestion) => {
+        return (
+          <div
+            key={oneQuestion.id}
+            className="d-flex flex-row p-2 justify-content-between align-items-center border border-primary border-2"
+          >
+            <div className="col-2">{oneQuestion.topic}</div>
+            <div className="col-3">{oneQuestion.question}</div>
+            <div className="col-2">{oneQuestion.type}</div>
+            <div className="col-2">{oneQuestion.difficulty}</div>
+            <div className="col-3">
+            <Link
+              to={`/questions/details/${oneQuestion.id}`}
+              className="text-info px-3"
+            >
+              <i className="fa-solid fa-circle-info"></i>
+            </Link>
+            <Link
+              className="text-danger px-3"
+              onClick={() => {
+                deleteQuestion(oneQuestion.id);
+              }}
+            >
+              <i className="fa-solid fa-trash"></i>
+            </Link>
+            <Link
+              to={`/questions/form/${oneQuestion.id}`}
+              className="text-warning px-3"
+            >
+              <i className="fa-solid fa-pen"></i>
+            </Link>
+          </div></div>
+        );
+      })}
     </>
-  )
-}
+  );
+};

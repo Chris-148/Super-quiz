@@ -46,10 +46,11 @@ export const DetailsQuestionsPage = () => {
 
           }
         </ul>
+        <h3 className="px-3">Difficulty : {question.difficulty}</h3>
         <h4 className="text-end px-3 my-5">created by : {question.userId}</h4>
         <div className="d-flex justify-content-around">
           <Link to="/questions" className="btn btn-info">Go back to all Questions</Link>
-          <Link to="/question/form" className="btn btn-warning">Update</Link>
+          <Link to={`/questions/form/${question.id}`} className="btn btn-warning">Update</Link>
           <button className="btn btn-danger" onClick={()=> {
             deleteQuestion(question.id);
             nav('/questions');

@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import { QuestionsContext } from '../context/QuestionsContext'
+import { useParams } from 'react-router-dom'
 
 export const FormQuestionsPage = () => {
-  const {addQuestion} = useContext(QuestionsContext)
+  const {addQuestion, findQuestionById , loading, updateQuestion} = useContext(QuestionsContext)
   const [newQuestionToAdd, setNewQuestionToAdd] = useState({
     question: "",
     topic: "",
@@ -15,9 +16,27 @@ export const FormQuestionsPage = () => {
     audio: ""
   })
 
+  // initailize params
+  const { questionId } = useParams();
+
+  useEffect(()=>{
+    // if we have id params and all questions are load insade question state (need this because find works with question state)
+    if(!loading && questionId){
+       const updateQuestion = findQuestionById(questionId)
+      // console.log(findQuestionById(questionId))
+      setNewQuestionToAdd(updateQuestion)
+    }
+  },[loading,questionId])
+
   function handleCreateQuestion(event){
     event.preventDefault()
-    addQuestion(newQuestionToAdd)
+    if(questionId){
+      updateQuestion(newQuestionToAdd)
+    //  console.log(newQuestionToAdd)
+    }else{
+      addQuestion(newQuestionToAdd)
+    }
+    
     setNewQuestionToAdd({
             question: "",
             topic: "",

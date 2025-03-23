@@ -21,7 +21,7 @@ function App() {
       {/* ROUTER */}
       <Routes>
         <Route path='/' element={<HomePage/>}/>
-        <Route path='/quiz' element={<QuizPage/>}/>
+        <Route path='/quiz/:quizId' element={<QuizPage/>}/>
         <Route path='/questions' element={<QuestionsPage/>}/>
         {/* add question */}
         <Route path='/questions/form' element={<FormQuestionsPage/>}/>

@@ -9,6 +9,8 @@ import { FormQuestionsPage } from './pages/FormQuestionsPage'
 import { DetailsQuestionsPage } from './pages/DetailsQuestionsPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { Footer } from './components/Footer'
+import toast, { Toaster } from 'react-hot-toast';
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,6 +18,27 @@ function App() {
   return (
     <>
     <Navbar />
+    <Toaster 
+      position="bottom-center"
+      reverseOrder={false}
+      toastOptions={{
+        className: "alert alert-dismissible alert-danger",
+        error: {
+          style:{
+            color: "white",
+            background: "red",
+          }
+          
+        },
+        success: {
+          style:{
+            color: "white",
+            background: "green",
+          }
+         
+        }
+      }}
+    />
     <div className="container-fluid">
 
       {/* ROUTER */}

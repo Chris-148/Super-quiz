@@ -3,6 +3,7 @@ import { QuizContext } from "../context/QuizContext";
 import { useContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const QuizForm = () => {
   const { questionsCategory, createArrayQuestion } =
@@ -10,6 +11,16 @@ export const QuizForm = () => {
   const { createQuiz } = useContext(QuizContext);
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const [nbrQuestions, setNbrQuestions] = useState(10)
+
+  function listNbr(){
+    let listNbr = []
+    for(let i=10; i<=50; i++){
+      listNbr.push(<option key={i} value={i}>{i}</option>)
+    }
+    return <>{listNbr}</>
+  }
+
   const [quizReady, setQuizReady] = useState(false);
   let nav = useNavigate();
   const [newQuiz, setNewQuiz] = useState({
@@ -24,14 +35,22 @@ export const QuizForm = () => {
 
   async function handleCreateQuiz(e) {
     e.preventDefault();
-    let arrayQuestions = await createArrayQuestion(category, difficulty);
+    let arrayQuestions = await createArrayQuestion(category, difficulty, nbrQuestions);
 
     let updatedQuiz = {
       ...newQuiz,
       QuestionArray: arrayQuestions,
     };
-    setNewQuiz(updatedQuiz);
-    setQuizReady(true);
+
+    if (arrayQuestions.length < 10) {
+      toast.error(
+        "Sorry u need to select other settings, this quiz have less than 10 questions"
+      );
+      return setQuizReady(false);
+    } else {
+      setNewQuiz(updatedQuiz);
+      setQuizReady(true);
+    }
   }
 
   // WHYYYY ?
@@ -39,7 +58,7 @@ export const QuizForm = () => {
     if (quizReady) {
       createQuiz(newQuiz);
       setQuizReady(false);
-      
+      toast.success("Quiz create. Good Game, Have Fun!!!");
       nav(`/quiz/${newQuiz.id}`);
     }
   }, [newQuiz, quizReady]);
@@ -71,7 +90,7 @@ export const QuizForm = () => {
                 Category
               </label>
               <select
-                className="form-select"
+                className="form-select mb-3"
                 id="category"
                 name="category"
                 onChange={(e) => setCategory(e.target.value)}
@@ -90,7 +109,7 @@ export const QuizForm = () => {
                 Difficulty
               </label>
               <select
-                className="form-select "
+                className="form-select mb-3"
                 id="difficulty"
                 name="difficulty"
                 onChange={(e) => setDifficulty(e.target.value)}
@@ -100,6 +119,20 @@ export const QuizForm = () => {
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
+              </select>
+              <label htmlFor="nbrQuestions" className="form-label">
+                Numbers of questions
+              </label>
+              <select
+                className="form-select mb-3"
+                id="nbrQuestions"
+                name="nbrQuestions"
+                onChange={(e) => setNbrQuestions(e.target.value)}
+                value={nbrQuestions}
+              >
+                {
+                  listNbr()
+                }
               </select>
             </div>
           </div>

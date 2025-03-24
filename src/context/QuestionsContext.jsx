@@ -7,7 +7,7 @@ export const QuestionsProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [questionsCategory, setQuestionsCategory] = useState([
-    "General Knowledge", "Books", "Film", "Music", "Video Games", "Board Game", "Science and Nature", "Computer Science", "Mathematics", "Mythology", "Sports", "Geography", "History", "Art", "Celebrities", "Animals", "Comics", "Japanise Anime and Manga", "Cartoon and Animation", "Harry Potter"
+    "General Knowledge", "Books", "Film", "Music", "Video Games", "Board Game", "Science", "Science: Computers", "Mathematics", "Mythology", "Sports", "Geography", "History", "Art", "Celebrities", "Animals", "Comics", "Japanise Anime and Manga", "Cartoon and Animation", "Harry Potter"
   ])
   // const [updateThisQuestion, setUpdateThisQuestion] = useState(null)
 
@@ -24,7 +24,7 @@ export const QuestionsProvider = ({ children }) => {
   }
 
   // create question Array with somes parameter
-  async function createArrayQuestion(category, difficulty){
+  async function createArrayQuestion(category, difficulty, nbrQuestions){
     await fetchAllQuestions()
     // console.log(category, difficulty)
     // filter question by category or difficulty or both or nothing
@@ -48,7 +48,7 @@ export const QuestionsProvider = ({ children }) => {
       const shuffledQuestions = filteredQuestions.sort(() => Math.random() - 0.5)
       
       // return 10 questions
-      return shuffledQuestions.slice(0,10)
+      return shuffledQuestions.slice(0,nbrQuestions)
   }
 
 

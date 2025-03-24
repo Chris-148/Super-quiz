@@ -28,9 +28,8 @@ export const QuizProvider = ({ children }) => {
     }
     
     return (
-      <QuizContext.Provider value={{findQuizById, currentQuiz, quizLoading, createQuiz}}>
+      <QuizContext.Provider value={{findQuizById, currentQuiz, quizLoading, setQuizLoading, createQuiz}}>
           {children}
         </QuizContext.Provider>
       );
-
 }

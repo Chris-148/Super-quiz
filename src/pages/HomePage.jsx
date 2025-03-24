@@ -3,6 +3,7 @@ import axios from 'axios'
 import { QuestionsContext } from '../context/QuestionsContext'
 import { useContext, useState, useEffect} from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { QuizForm } from '../components/QuizForm'
 
 export const HomePage = () => {
 
@@ -38,6 +39,19 @@ export const HomePage = () => {
 
 
   return (
-    <div>HomePage</div>
+    <div className="container">
+      <h1 className="text-center my-4">Super Quiz</h1>
+      <section className="d-flex flex-column align-items-center">
+      <p>Welcome to Super Quiz, on this site you can : </p>
+      <ul >
+        <li>Generate quizzes</li>
+        <li>Create questions for future quizzes</li>
+        <li>Challenge others to a quiz they've already generated</li>
+      </ul>
+      </section>  
+      <div className="border border-2 border-secondary mx-5">
+          <QuizForm/>
+      </div>
+    </div>
   )
 }

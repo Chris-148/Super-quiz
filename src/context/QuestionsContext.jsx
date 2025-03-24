@@ -22,6 +22,7 @@ export const QuestionsProvider = ({ children }) => {
 
   //function to find one question by id
   function findQuestionById(id) {
+    console.log(questions.find((question) => question.id == id))
     return questions.find((question) => question.id == id);
   }
 
@@ -41,7 +42,7 @@ export const QuestionsProvider = ({ children }) => {
   {
     try {
       const response = await axios.post("http://localhost:4000/question", question)
-      // alert("Question added successfully!")
+      alert("Question added successfully!")
       // to add the new question insade the array state Questions 
       setQuestions((prevQuestions) => [...prevQuestions, response.data]);
       

@@ -1,12 +1,14 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { QuestionsContext } from "./QuestionsContext";
 
 export const QuizContext = createContext();
 
 export const QuizProvider = ({ children }) => {
-
+    const {findQuestionById, fetchAllQuestions} = useContext(QuestionsContext)
     const [quizLoading, setQuizLoading] = useState(true)
     const [currentQuiz, setCurrentQuiz] = useState({})
+ 
 
     async function findQuizById(QuizId){
         try {
@@ -15,7 +17,6 @@ export const QuizProvider = ({ children }) => {
             setQuizLoading(false)
         } catch(err) {console.log(err)}
     }
-
      return (
         <QuizContext.Provider value={{findQuizById, currentQuiz, quizLoading}}>
           {children}

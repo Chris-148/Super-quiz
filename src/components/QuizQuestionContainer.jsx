@@ -10,28 +10,34 @@ export const QuizQuestionContainer = () => {
     const [score, setScore] = useState(0);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [currentQuestion, setCurrentQuestion] = useState({})
+    //We need to create a randomized array of the wrong answers and the correct answer
+    const [answerArray, setAnswerArray] = useState([])
     const difficultyScores = {
         Easy: 1,
         Medium: 2,
         Hard: 3
       };
     const {findQuizById, currentQuiz, quizLoading} = useContext(QuizContext);
-    const {findQuestionById} = useContext(QuestionsContext)
+    const {findQuestionById, questions} = useContext(QuestionsContext)
     
 
-    // const foundQuiz = findQuizById(quizId)
+    
     useEffect(()=>{
-         // const response = findQuizById(quizId)
+       
         if(quizLoading) {
-        findQuizById(quizId)
-        // console.log(quizLoading, currentQuiz)
+          findQuizById(quizId)
         }
-        if(!quizLoading){
-          console.log(currentQuiz)
-          setCurrentQuestion(findQuestionById(currentQuiz.QuestionIdArray[currentQuestionIndex]))
-          console.log(currentQuiz.QuestionIdArray[currentQuestionIndex])
+        else if(!quizLoading){
+            console.log(currentQuiz.QuestionArray)
         }
     },[quizLoading]) //later update by quiz id
+
+    //Next steps
+    // 1)Show Quiz Questions 
+    // 2)Allow selection of the right answer
+    // 3) Show the potential score of the answer
+    // 3) Check if the answer is correct on submit button
+    // 4) on submissinif answer is correct add the score to the score to the data base and add userId in the beginning of the player
     
     // const thisQuestionsScore = currentQuiz ? difficultyScores[currentQuiz.difficuly] || 0 : 0
     // console.log(currentQuestion.difficulty)
@@ -41,7 +47,6 @@ export const QuizQuestionContainer = () => {
   return (
     !quizLoading? <>
     <div>{currentQuiz.id}</div>
-    <div>{currentQuiz.QuestionIdArray[currentQuestionIndex]}</div>
     // first get the quiz data by id 
     // map the questions, the answers
     </>:<div>loading</div>

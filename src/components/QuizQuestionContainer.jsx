@@ -12,6 +12,8 @@ export const QuizQuestionContainer = () => {
     const [currentQuestion, setCurrentQuestion] = useState({})
     //We need to create a randomized array of the wrong answers and the correct answer
     const [answerArray, setAnswerArray] = useState([])
+    const [selectedAnswer, setSelectedAnswer] = useState(null)
+
     const difficultyScores = {
         Easy: 1,
         Medium: 2,
@@ -20,7 +22,10 @@ export const QuizQuestionContainer = () => {
     const {findQuizById, currentQuiz, quizLoading} = useContext(QuizContext);
     const {findQuestionById, questions} = useContext(QuestionsContext)
     
-
+    function randomizeAnswers(currentQuiz){
+      const allAnswers = [(currentQuiz.QuestionArray[currentQuestionIndex].good_answer), ...(currentQuiz.QuestionArray[currentQuestionIndex].other_answer)]
+      return allAnswers.sort(()=>Math.random() - 0.5)
+    }
     
     useEffect(()=>{
        
@@ -28,9 +33,19 @@ export const QuizQuestionContainer = () => {
           findQuizById(quizId)
         }
         else if(!quizLoading){
-            console.log(currentQuiz.QuestionArray)
+            // console.log(currentQuiz.QuestionArray)
+            console.log("this is the current Quiz:", currentQuiz)
+            setAnswerArray(randomizeAnswers(currentQuiz))     
+            setCurrentQuestion({...currentQuiz.QuestionArray[currentQuestionIndex]})       
         }
-    },[quizLoading]) //later update by quiz id
+    },[quizLoading, currentQuiz]) //later update by quiz id
+
+    function handleSelect(oneAnswer) {
+      if (oneAnswer === currentQuestion.good_answer){
+        console.log(oneAnswer)
+      }
+      setSelectedAnswer(oneAnswer)
+    }
 
     //Next steps
     // 1)Show Quiz Questions 
@@ -45,10 +60,30 @@ export const QuizQuestionContainer = () => {
     
 
   return (
-    !quizLoading? <>
-    <div>{currentQuiz.id}</div>
+    !quizLoading?
+    <div className = "container-lg">
+    <div>Your Question #{currentQuestionIndex+1}</div>
+    {/* img and audio need to be defined later! */}
+    <div>{currentQuestion.question}</div>
+    {currentQuestion.img === null?<div>{currentQuestion.img}</div>: null}
+    {currentQuestion.audio === null?<div>{currentQuestion.audio}</div>: null}
+    <div className="row">
+    {answerArray.map((oneAnswer, index)=>{
+      return(
+        <div key={index} className="col-6 p-2">
+          <div  className={`p-3 border text-center ${
+                selectedAnswer === oneAnswer ? "bg-primary text-white" : "bg-light text-black"
+              }`}
+              onClick={() => handleSelect(oneAnswer)}
+              style={{ cursor: "pointer" }}>
+          {oneAnswer}
+          </div>
+        </div>
+      )
+    })}
+    </div>
     // first get the quiz data by id 
     // map the questions, the answers
-    </>:<div>loading</div>
+    </div>:<div>loading</div>
   )
 }

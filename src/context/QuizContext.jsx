@@ -12,8 +12,15 @@ export const QuizProvider = ({ children }) => {
         } catch(err) {console.log(err)}
     }
 
+    async function createQuiz(newQuiz)
+    {
+      try{
+        const res = await axios.post(`http://localhost:4000/quiz`, newQuiz )
+        return res
+      }catch(err) {console.log(err)}
+    }
      return (
-        <QuizContext.Provider value={{findQuizById}}>
+        <QuizContext.Provider value={{findQuizById, createQuiz}}>
           {children}
         </QuizContext.Provider>
       );

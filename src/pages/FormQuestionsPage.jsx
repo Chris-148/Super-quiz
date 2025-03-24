@@ -4,7 +4,7 @@ import { QuestionsContext } from '../context/QuestionsContext'
 import { useParams } from 'react-router-dom'
 
 export const FormQuestionsPage = () => {
-  const {addQuestion, findQuestionById , loading, updateQuestion} = useContext(QuestionsContext)
+  const {addQuestion, findQuestionById , loading, updateQuestion, questionsCategory} = useContext(QuestionsContext)
   const [newQuestionToAdd, setNewQuestionToAdd] = useState({
     question: "",
     topic: "",
@@ -91,7 +91,14 @@ export const FormQuestionsPage = () => {
       <div className="col-md-4">
         <label htmlFor="dropdown1" className="form-label">Topic:</label>
         <select className="form-select form-select-sm" id="dropdown1" name="topic" value={newQuestionToAdd.topic} onChange={handleOnChange}>
-          <option value="General Knowledge">General Knowledge</option>
+          {
+            questionsCategory.map((category , index) => {
+              return (
+                <option key={index} value={category}>{category}</option>
+              )
+            })
+          }
+          
           <option value="Harry Potter">Harry Potter</option>
           <option value="Computer Science">Computer Science</option>
         </select>

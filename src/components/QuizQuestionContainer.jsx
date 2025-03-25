@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom"
 import { QuizContext } from "../context/QuizContext"
 import { QuestionsContext } from "../context/QuestionsContext"
 import { useNavigate } from "react-router-dom"
+import { QuizTimer } from "./QuizTimer"
+import { QuizStatusBar } from "./QuizStatusBar"
 
 export const QuizQuestionContainer = () => {
 
@@ -23,7 +25,7 @@ export const QuizQuestionContainer = () => {
         medium: 30,
         hard: 50
       };
-    const {findQuizById, currentQuiz, quizLoading, setQuizLoading} = useContext(QuizContext);
+    const {findQuizById, currentQuiz, setCurrentQuiz, quizLoading, setQuizLoading, timeLeft, setTimeLeft, setTimeRun, timePerQuestion, updateQuizScore} = useContext(QuizContext);
     const {findQuestionById, questions} = useContext(QuestionsContext)
 
      useEffect(()=>{
@@ -42,6 +44,7 @@ export const QuizQuestionContainer = () => {
     // Calculate the score for this question based on difficulty 
     useEffect(()=>{
       setQuestionScore(currentQuestion? difficultyScores[currentQuestion.difficulty] || 0 : 0)
+      setTimeRun(true)
     }, [currentQuestion])
 
     //Randomize answer options
@@ -56,18 +59,40 @@ export const QuizQuestionContainer = () => {
       }
       setSelectedAnswer(oneAnswer)
     }
-
-    function handleNextQuestion(){
+    
+    async function handleNextQuestion(){
       if(selectedAnswer === currentQuestion.good_answer){
         setTotalScore((prevScore) => prevScore + questionScore);
       }
-      if (currentQuestionIndex < currentQuiz.QuestionArray.length) {
+      if (currentQuestionIndex < currentQuiz.QuestionArray.length -1) {
         setCurrentQuestionIndex((prevQuestionIndex) => prevQuestionIndex + 1);
+        setTimeLeft(timePerQuestion)
       } else {
         setQuizLoading(true)
-        nav('/quizEnd')
+        setTimeRun(true)
+        // check score and store if needed
+        if(!currentQuiz.scores){
+          console.log({...currentQuiz, ["scores"] : {
+            [`${currentQuiz.userId}`] : totalScore
+          }})
+          let score = {["scores"] : {
+            [`${currentQuiz.userId}`] : totalScore
+          }}
+        
+          
+          updateQuizScore(quizId, totalScore)
+        }
+        //quiz.score.userid = totalScore
+        nav(`/quiz/${quizId}/${totalScore}/end`)
       }
     }
+    //Go to next Question, if time is up
+    useEffect(()=>{
+      if (timeLeft <= 0) {
+        handleNextQuestion()
+      }
+    }, [timeLeft])
+
     //Next steps
     // 1)Show Quiz Questions 
     // 2)Allow selection of the right answer
@@ -81,6 +106,8 @@ export const QuizQuestionContainer = () => {
   return (
     !quizLoading?
     <div className = "container-lg">
+    <QuizStatusBar currentQuestionIndex = {currentQuestionIndex}/>
+    <QuizTimer handleNextQuestion = {handleNextQuestion}/>
     <div>Your Question #{currentQuestionIndex+1}</div>
     {/* img and audio need to be defined later! */}
     <div>{currentQuestion.question}</div>

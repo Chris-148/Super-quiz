@@ -52,8 +52,7 @@ function App() {
         {/* update question */}
         <Route path='/questions/form/:questionId' element={<FormQuestionsPage/>}/>
         <Route path="/questions/details/:questionId" element={<DetailsQuestionsPage/>}/>
-        <Route path="/questions/quizEnd" element={<QuizEndedPage/>}/>
-
+        <Route path="/quiz/:quizId/:totalScore/end" element={<QuizEndedPage/>}/>
         <Route path="*" element={<NotFoundPage/>}/>
       </Routes>
      </div>

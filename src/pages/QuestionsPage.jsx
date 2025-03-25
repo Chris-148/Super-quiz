@@ -9,25 +9,10 @@ export const QuestionsPage = () => {
     useContext(QuestionsContext);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // API pull to get all questions
-  // useEffect(()=>{
-  //   async function getAllQuestions() {
-  //     try {
-  //       const response = await axios.get(`http://localhost:4000/question`)
-  //       console.log(response)
-  //       setAllQuestions(response.data)
-  //     } catch (err) {
-  //       console.log(`here is the error ${err}`)
-  //     }
-  //   }
-
-  //   getAllQuestions()
-  // },[])
-
   return (
     <>
       {/* {Searchbar input} */}
-      <div>
+      <div className="form-control me-sm-2" type="search" placeholder="Search">
         <input
           type="text"
           value={searchTerm}
@@ -36,12 +21,13 @@ export const QuestionsPage = () => {
             setSearchTerm(event.target.value);
           }}
         />
+        
 
         {/* {Filter Database} */}
         {}
       </div>
       {/* here is the header for the questions */}
-      <div className="d-flex flex-row p-2 justify-content-between align-items-center border-secondary">
+      <div className="d-flex flex-row p-3 justify-content-between align-items-center border-secondary">
         <div className="col-2">Topic</div>
         <div className="col-3">Question</div>
         <div className="col-2">Type</div>
@@ -51,7 +37,8 @@ export const QuestionsPage = () => {
       </div>
 
       {/*Mapping of all questions  */}
-      {questions?.map((oneQuestion) => {
+      
+      {questions?.filter((questions)=>questions.question.toLowerCase().includes(searchTerm.toLowerCase())).map((oneQuestion) => {
         return (
           <div
             key={oneQuestion.id}

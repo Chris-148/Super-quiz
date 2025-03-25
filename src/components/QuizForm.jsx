@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 export const QuizForm = () => {
-  const { questionsCategory, createArrayQuestion } =
+  const { questionsTopic, createArrayQuestion } =
     useContext(QuestionsContext);
   const { createQuiz } = useContext(QuizContext);
-  const [category, setCategory] = useState("");
-  const [difficulty, setDifficulty] = useState("");
-  const [nbrQuestions, setNbrQuestions] = useState(10)
+  // const [topic, setTopic] = useState("");
+  // const [difficulty, setDifficulty] = useState("");
+  
 
   function listNbr(){
     let listNbr = []
@@ -27,15 +27,23 @@ export const QuizForm = () => {
     id: uuidv4(),
     userId: "",
     QuestionArray: [],
+    scores: [],
+    topic: "",
+    difficulty: "",
+    nbrQuestions: 10,
   });
 
   function handleNameChange(e) {
-    setNewQuiz({ ...newQuiz, ["userId"]: e.target.value });
+    let name = e.target.name;
+
+    let value = e.target.value;
+    
+    setNewQuiz({ ...newQuiz, [name]: value });
   }
 
   async function handleCreateQuiz(e) {
     e.preventDefault();
-    let arrayQuestions = await createArrayQuestion(category, difficulty, nbrQuestions);
+    let arrayQuestions = await createArrayQuestion(newQuiz.topic, newQuiz.difficulty, newQuiz.nbrQuestions);
 
     let updatedQuiz = {
       ...newQuiz,
@@ -78,7 +86,7 @@ export const QuizForm = () => {
                 name="userId"
                 placeholder="Your Name"
                 value={newQuiz.userId}
-                onChange={(e) => handleNameChange(e)}
+                onChange={handleNameChange}
               />
               <button type="submit" className="btn btn-success my-4 w-50">
                 Play
@@ -86,21 +94,21 @@ export const QuizForm = () => {
             </div>
             <div className="col-7 m-3 border border-3 border-primary">
               <legend className="m-2">Quiz settings</legend>
-              <label htmlFor="category" className="form-label">
-                Category
+              <label htmlFor="topic" className="form-label">
+                Topic
               </label>
               <select
                 className="form-select mb-3"
-                id="category"
-                name="category"
-                onChange={(e) => setCategory(e.target.value)}
-                value={category}
+                id="topic"
+                name="topic"
+                onChange={handleNameChange}
+                value={newQuiz.topic}
               >
-                <option value="">All Category</option>
-                {questionsCategory.map((category, index) => {
+                <option value="">All Topic</option>
+                {questionsTopic.map((topic, index) => {
                   return (
-                    <option key={index} value={category}>
-                      {category}
+                    <option key={index} value={topic}>
+                      {topic}
                     </option>
                   );
                 })}
@@ -112,8 +120,8 @@ export const QuizForm = () => {
                 className="form-select mb-3"
                 id="difficulty"
                 name="difficulty"
-                onChange={(e) => setDifficulty(e.target.value)}
-                value={difficulty}
+                onChange={(e) => handleNameChange(e)}
+                value={newQuiz.difficulty}
               >
                 <option value="">All difficulty</option>
                 <option value="easy">Easy</option>
@@ -127,8 +135,8 @@ export const QuizForm = () => {
                 className="form-select mb-3"
                 id="nbrQuestions"
                 name="nbrQuestions"
-                onChange={(e) => setNbrQuestions(e.target.value)}
-                value={nbrQuestions}
+                onChange={(e) => handleNameChange(e)}
+                value={newQuiz.nbrQuestions}
               >
                 {
                   listNbr()

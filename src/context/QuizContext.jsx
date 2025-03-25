@@ -8,11 +8,21 @@ export const QuizProvider = ({ children }) => {
     const {findQuestionById, fetchAllQuestions} = useContext(QuestionsContext)
     const [quizLoading, setQuizLoading] = useState(true)
     const [currentQuiz, setCurrentQuiz] = useState({})
-       //Set time per question in quiz, e.g. to 60 seconds
-    const [timePerQuestion, setTimePerQuestion] = useState(10000);
-    const [timeLeft, setTimeLeft] = useState(timePerQuestion);
-    const [timeRun, setTimeRun] = useState(false);
+           //Set time per question in quiz, e.g. to 60 seconds
+           const [timePerQuestion, setTimePerQuestion] = useState(10000);
+           const [timeLeft, setTimeLeft] = useState(timePerQuestion);
+           const [timeRun, setTimeRun] = useState(false);
+    const [allQuiz, setAllQuiz] = useState([])
+    const [allQuizLoading, setAllQuizLoading] = useState(true)
  
+    async function findAllQuiz(){
+      try{
+        const res= await axios.get("http://localhost:4000/quiz")
+        setAllQuiz(res.data)
+        setAllQuizLoading(false)
+      }catch(err){console.log(err)}
+    }
+
 
     async function findQuizById(quizId){
         try {
@@ -41,7 +51,8 @@ export const QuizProvider = ({ children }) => {
     }
     
     return (
-      <QuizContext.Provider value={{findQuizById, currentQuiz, setCurrentQuiz, quizLoading, setQuizLoading, createQuiz, timePerQuestion, setTimePerQuestion, setTimeLeft,timeLeft , timeRun, setTimeRun, updateQuizScore}}>
+    
+      <QuizContext.Provider value={{findQuizById, currentQuiz, setCurrentQuiz,  quizLoading, setQuizLoading, createQuiz, findAllQuiz, timePerQuestion, setTimePerQuestion, setTimeLeft,timeLeft , timeRun, setTimeRun, updateQuizScore, allQuizLoading, allQuiz}}>
           {children}
         </QuizContext.Provider>
       );

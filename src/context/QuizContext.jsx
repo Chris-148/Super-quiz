@@ -44,8 +44,8 @@ export const QuizProvider = ({ children }) => {
     async function updateQuizScore(quizId, score)
     {
       try{
-        console.log(score)
         const res = await axios.patch(`http://localhost:4000/quiz/${quizId}`, {"scores" : score})
+        setCurrentQuiz(res.data)
         return res
 
       }catch(err) {console.log(err)}

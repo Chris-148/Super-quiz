@@ -71,16 +71,10 @@ export const QuizQuestionContainer = () => {
         setQuizLoading(true)
         setTimeRun(true)
         // check score and store if needed
-        if(!currentQuiz.scores){
-          console.log({...currentQuiz, ["scores"] : {
+        if(currentQuiz.scores.length === 0){
+          updateQuizScore(quizId, [{
             [`${currentQuiz.userId}`] : totalScore
-          }})
-          let score = {["scores"] : {
-            [`${currentQuiz.userId}`] : totalScore
-          }}
-        
-          
-          updateQuizScore(quizId, totalScore)
+          }])
         }
         //quiz.score.userid = totalScore
         nav(`/quiz/${quizId}/${totalScore}/end`)

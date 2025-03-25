@@ -6,7 +6,7 @@ export const QuestionsContext = createContext();
 export const QuestionsProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [questionsCategory, setQuestionsCategory] = useState([
+  const [questionsTopic, setQuestionsTopic] = useState([
     "General Knowledge", "Books", "Film", "Music", "Video Games", "Board Game", "Science", "Science: Computers", "Mathematics", "Mythology", "Sports", "Geography", "History", "Art", "Celebrities", "Animals", "Comics", "Japanise Anime and Manga", "Cartoon and Animation", "Harry Potter"
   ])
   // const [updateThisQuestion, setUpdateThisQuestion] = useState(null)
@@ -106,7 +106,7 @@ async function updateQuestion(question)
   }, []);
 
   return (
-    <QuestionsContext.Provider value={{ questions, questionsCategory, findQuestionById, deleteQuestion , loading, addQuestion, updateQuestion, createArrayQuestion}}>
+    <QuestionsContext.Provider value={{ questions, questionsTopic, findQuestionById, deleteQuestion , loading, addQuestion, updateQuestion, createArrayQuestion}}>
       {children}
     </QuestionsContext.Provider>
   );

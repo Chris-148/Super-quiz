@@ -8,7 +8,17 @@ export const QuizProvider = ({ children }) => {
     const {findQuestionById, fetchAllQuestions} = useContext(QuestionsContext)
     const [quizLoading, setQuizLoading] = useState(true)
     const [currentQuiz, setCurrentQuiz] = useState({})
+    const [allQuiz, setAllQuiz] = useState([])
+    const [allQuizLoading, setAllQuizLoading] = useState(true)
  
+    async function findAllQuiz(){
+      try{
+        const res= await axios.get("http://localhost:4000/quiz")
+        setAllQuiz(res.data)
+        setAllQuizLoading(false)
+      }catch(err){console.log(err)}
+    }
+
 
     async function findQuizById(QuizId){
         try {
@@ -28,7 +38,7 @@ export const QuizProvider = ({ children }) => {
     }
     
     return (
-      <QuizContext.Provider value={{findQuizById, currentQuiz, quizLoading, setQuizLoading, createQuiz}}>
+      <QuizContext.Provider value={{findQuizById, currentQuiz, quizLoading, setQuizLoading, createQuiz, findAllQuiz, allQuizLoading, allQuiz}}>
           {children}
         </QuizContext.Provider>
       );

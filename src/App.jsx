@@ -10,6 +10,7 @@ import { DetailsQuestionsPage } from './pages/DetailsQuestionsPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { Footer } from './components/Footer'
 import toast, { Toaster } from 'react-hot-toast';
+import { AllQuizPage } from './pages/AllQuizPage'
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage/>}/>
         <Route path='/quiz/:quizId' element={<QuizPage/>}/>
+        <Route path='/quiz/all' element={<AllQuizPage/>}/>
         <Route path='/questions' element={<QuestionsPage/>}/>
         {/* add question */}
         <Route path='/questions/form' element={<FormQuestionsPage/>}/>

@@ -51,8 +51,7 @@ export const QuizProvider = ({ children }) => {
     }
     
     return (
-    
-      <QuizContext.Provider value={{findQuizById, currentQuiz, setCurrentQuiz,  quizLoading, setQuizLoading, createQuiz, findAllQuiz, timePerQuestion, setTimePerQuestion, setTimeLeft,timeLeft , timeRun, setTimeRun, updateQuizScore, allQuizLoading, allQuiz}}>
+      <QuizContext.Provider value={{findQuizById, currentQuiz, setCurrentQuiz, quizLoading, setQuizLoading, createQuiz, findAllQuiz, allQuizLoading, allQuiz, timePerQuestion, setTimePerQuestion, setTimeLeft,timeLeft , timeRun, setTimeRun, updateQuizScore}}>
           {children}
         </QuizContext.Provider>
       );

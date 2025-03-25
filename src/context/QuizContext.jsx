@@ -9,9 +9,9 @@ export const QuizProvider = ({ children }) => {
     const [quizLoading, setQuizLoading] = useState(true)
     const [currentQuiz, setCurrentQuiz] = useState({})
            //Set time per question in quiz, e.g. to 60 seconds
-           const [timePerQuestion, setTimePerQuestion] = useState(10000);
-           const [timeLeft, setTimeLeft] = useState(timePerQuestion);
-           const [timeRun, setTimeRun] = useState(false);
+    const [timePerQuestion, setTimePerQuestion] = useState(10000);
+    const [timeLeft, setTimeLeft] = useState(timePerQuestion);
+    const [timeRun, setTimeRun] = useState(false);
     const [allQuiz, setAllQuiz] = useState([])
     const [allQuizLoading, setAllQuizLoading] = useState(true)
  

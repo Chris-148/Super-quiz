@@ -2,6 +2,7 @@ import { useState, useContext, useEffect} from "react"
 import { useParams } from "react-router-dom"
 import { QuizContext } from "../context/QuizContext"
 import { QuestionsContext } from "../context/QuestionsContext"
+import { useNavigate } from "react-router-dom"
 
 export const QuizQuestionContainer = () => {
 
@@ -15,6 +16,7 @@ export const QuizQuestionContainer = () => {
     //We need to create a randomized array of the wrong answers and the correct answer
     const [answerArray, setAnswerArray] = useState([]);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const nav = useNavigate();
 
     const difficultyScores = {
         easy: 10,
@@ -63,6 +65,7 @@ export const QuizQuestionContainer = () => {
         setCurrentQuestionIndex((prevQuestionIndex) => prevQuestionIndex + 1);
       } else {
         setQuizLoading(true)
+        nav('/quizEnd')
       }
     }
     //Next steps

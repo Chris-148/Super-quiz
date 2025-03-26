@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 export const FormQuestionsPage = () => {
   const {addQuestion, findQuestionById , loading, updateQuestion, questionsTopic} = useContext(QuestionsContext)
   const [image,setImage] = useState(null)
+  const [audio,setAudio] = useState(null)
   const [newQuestionToAdd, setNewQuestionToAdd] = useState({
     question: "",
     topic: "",
@@ -39,10 +40,25 @@ export const FormQuestionsPage = () => {
         data.append("cloud_name", "dovwi3ybd");
         const response = await axios.post("https://api.cloudinary.com/v1_1/dovwi3ybd/image/upload", data);
         const newQuestionWithImage = {...newQuestionToAdd, ["img"] : response.data.url};
-        updateQuestion(newQuestionWithImage);
-      }else{
+        if(newQuestionWithImage){
+          updateQuestion(newQuestionWithImage);
+        }
+      }else if(audio){
+        const data = new FormData();
+        data.append('file', audio);
+        data.append("upload_preset", "quiz_game");
+        data.append("cloud_name", "dovwi3ybd");
+        const response = await axios.post("https://api.cloudinary.com/v1_1/dovwi3ybd/video/upload", data);
+        console.log(response);
+        const newQuestionWithAudio = {...newQuestionToAdd, ["audio"] : response.data.url}
+        if(newQuestionWithAudio){
+          updateQuestion(newQuestionWithAudio);
+        }
+      } else{
         updateQuestion(newQuestionToAdd)
       }
+        
+     
       // updateQuestion(newQuestionToAdd)
     //  console.log(newQuestionToAdd)
     }else{
@@ -57,8 +73,20 @@ export const FormQuestionsPage = () => {
         addQuestion(newQuestionWithImage);
         }
         
+      }else if(audio){
+        const data = new FormData();
+        data.append('file', audio);
+        data.append("upload_preset", "quiz_game");
+        data.append("cloud_name", "dovwi3ybd");
+        const response = await axios.post("https://api.cloudinary.com/v1_1/dovwi3ybd/video/upload", data);
+        console.log(response);
+        const newQuestionWithAudio = {...newQuestionToAdd, ["audio"] : response.data.url}
+        if(newQuestionWithAudio){
+          addQuestion(newQuestionWithAudio);
+        }
       }else{
         addQuestion(newQuestionToAdd)
+        
       }
       
     }
@@ -156,7 +184,7 @@ export const FormQuestionsPage = () => {
 {(newQuestionToAdd.type === "Audio Question")?
      <div className="col-12">
      <label htmlFor="AudioLink" className="form-label">Question</label>
-     <input className="form-control" type="url" value={newQuestionToAdd.audio} name="audio" id="AudioLink" placeholder="URL to Audio" onChange={handleOnChange} />
+     <input className="form-control" type="file"  name="audio" id="AudioLink" placeholder="URL to Audio" onChange={(e) => { setAudio(e.target.files[0])} } />
    </div>: null
    }
 

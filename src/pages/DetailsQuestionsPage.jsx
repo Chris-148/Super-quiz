@@ -33,6 +33,7 @@ export const DetailsQuestionsPage = () => {
     
       <div className="container border border-2 border-primary m-5 p-5">
         {question.img ? <img src={question.img} /> : ""}
+        {question.audio ? <audio controls src={question.audio}/> : "" }
         <h2 className="text-center py-5 text-secondary">{question.question}</h2>
         <h3 className="px-3">Answer : </h3>
         <ul className="mx-3">

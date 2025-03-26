@@ -107,8 +107,8 @@ export const QuizQuestionContainer = () => {
     <div>{currentQuestion.question}</div>
     <div>Points you can win: {questionScore}</div>
     <div>Your total score: {totalScore}</div>
-    {currentQuestion.img === null?<div>{currentQuestion.img}</div>: null}
-    {currentQuestion.audio === null?<div>{currentQuestion.audio}</div>: null}
+    {currentQuestion.img?<div>{currentQuestion.img}</div>: null}
+    {currentQuestion.audio?<div>{currentQuestion.audio}</div>: null}
     <div className="row">
     {answerArray.map((oneAnswer, index)=>{
       return(

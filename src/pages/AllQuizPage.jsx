@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { QuizContext } from '../context/QuizContext'
+import {Link} from "react-router-dom"
 
 export const AllQuizPage = () => {
     const {allQuiz, allQuizLoading, findAllQuiz} = useContext(QuizContext)
@@ -27,7 +28,7 @@ export const AllQuizPage = () => {
                             <div>Difficulty : {quiz.difficulty}</div>
                             <div>questions : {quiz.nbrQuestions}</div>
                             <div>created by : {quiz.userId}</div>
-                            <div className="btn btn-success">Play</div>
+                            <Link to={`/quiz/${quiz.id}`} className="btn btn-success">Play</Link>
                         </div>
                     </div>)
                 })

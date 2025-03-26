@@ -14,6 +14,8 @@ export const QuizProvider = ({ children }) => {
     const [timeRun, setTimeRun] = useState(false);
     const [allQuiz, setAllQuiz] = useState([])
     const [allQuizLoading, setAllQuizLoading] = useState(true)
+    const [scoreIsSubmitted,setScoreIsSubmitted] = useState("false");
+
  
     async function findAllQuiz(){
       try{
@@ -50,9 +52,18 @@ export const QuizProvider = ({ children }) => {
 
       }catch(err) {console.log(err)}
     }
+
+    async function handleSubmitScore(quizId, score, playerName){
+      try{
+        const allScores = [...currentQuiz.scores, {[playerName]:score}]
+        console.log(playerName, allScores[0], quizId)
+        updateQuizScore(quizId, allScores)
+        setScoreIsSubmitted(true)
+      } catch(err) {console.log(err)}
+    }
     
     return (
-      <QuizContext.Provider value={{findQuizById, currentQuiz, setCurrentQuiz, quizLoading, setQuizLoading, createQuiz, findAllQuiz, allQuizLoading, allQuiz, timePerQuestion, setTimePerQuestion, setTimeLeft,timeLeft , timeRun, setTimeRun, updateQuizScore}}>
+      <QuizContext.Provider value={{findQuizById, currentQuiz, setCurrentQuiz, quizLoading, setQuizLoading, createQuiz, findAllQuiz, allQuizLoading, allQuiz, timePerQuestion, setTimePerQuestion, setTimeLeft,timeLeft , timeRun, setTimeRun, updateQuizScore, handleSubmitScore, setScoreIsSubmitted, scoreIsSubmitted}}>
           {children}
         </QuizContext.Provider>
       );

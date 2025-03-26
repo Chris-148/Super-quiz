@@ -4,14 +4,15 @@ import { QuestionsContext } from '../context/QuestionsContext'
 import { useParams } from 'react-router-dom'
 
 export const FormQuestionsPage = () => {
-  const {addQuestion, findQuestionById , loading, updateQuestion, questionsCategory} = useContext(QuestionsContext)
+  const {addQuestion, findQuestionById , loading, updateQuestion, questionsTopic} = useContext(QuestionsContext)
+  const [image,setImage] = useState(null)
   const [newQuestionToAdd, setNewQuestionToAdd] = useState({
     question: "",
     topic: "",
     type: "",
     good_answer: "",
     other_answer: ["","",""],
-    difficulty: "Easy",
+    difficulty: "easy",
     img: "",
     audio: ""
   })
@@ -28,13 +29,38 @@ export const FormQuestionsPage = () => {
     }
   },[loading,questionId])
 
-  function handleCreateQuestion(event){
+  async function handleCreateQuestion(event){
     event.preventDefault()
     if(questionId){
-      updateQuestion(newQuestionToAdd)
+      if(image){
+        const data = new FormData();
+        data.append('file', image);
+        data.append("upload_preset", "quiz_game");
+        data.append("cloud_name", "dovwi3ybd");
+        const response = await axios.post("https://api.cloudinary.com/v1_1/dovwi3ybd/image/upload", data);
+        const newQuestionWithImage = {...newQuestionToAdd, ["img"] : response.data.url};
+        updateQuestion(newQuestionWithImage);
+      }else{
+        updateQuestion(newQuestionToAdd)
+      }
+      // updateQuestion(newQuestionToAdd)
     //  console.log(newQuestionToAdd)
     }else{
-      addQuestion(newQuestionToAdd)
+      if(image){
+        const data = new FormData();
+        data.append('file', image);
+        data.append("upload_preset", "quiz_game");
+        data.append("cloud_name", "dovwi3ybd");
+        const response = await axios.post("https://api.cloudinary.com/v1_1/dovwi3ybd/image/upload", data);
+          const newQuestionWithImage = {...newQuestionToAdd, ["img"] : response.data.url};
+        if(newQuestionWithImage){
+        addQuestion(newQuestionWithImage);
+        }
+        
+      }else{
+        addQuestion(newQuestionToAdd)
+      }
+      
     }
     
     setNewQuestionToAdd({
@@ -43,7 +69,7 @@ export const FormQuestionsPage = () => {
             type: "",
             good_answer: "",
             other_answer: ["","",""],
-            difficulty: "Easy",
+            difficulty: "easy",
             img: "",
             audio: ""
           })
@@ -92,9 +118,9 @@ export const FormQuestionsPage = () => {
         <label htmlFor="dropdown1" className="form-label">Topic:</label>
         <select className="form-select form-select-sm" id="dropdown1" name="topic" value={newQuestionToAdd.topic} onChange={handleOnChange}>
           {
-            questionsCategory.map((category , index) => {
+            questionsTopic.map((topic , index) => {
               return (
-                <option key={index} value={category}>{category}</option>
+                <option key={index} value={topic}>{topic}</option>
               )
             })
           }
@@ -123,7 +149,7 @@ export const FormQuestionsPage = () => {
   {(newQuestionToAdd.type === "Image Question")?
      <div className="col-12">
      <label htmlFor="ImgLink" className="form-label">Question</label>
-     <input className="form-control" type="url" value={newQuestionToAdd.img} name="img" id="ImgLink" placeholder="URL to Image" onChange={handleOnChange} />
+     <input className="form-control" type="file"  name="img" id="ImgLink" placeholder="URL to Image" onChange={(e) => setImage(e.target.files[0])} />
    </div>: null
    }
 

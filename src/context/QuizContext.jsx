@@ -19,7 +19,7 @@ export const QuizProvider = ({ children }) => {
  
     async function findAllQuiz(){
       try{
-        const res= await axios.get("http://localhost:4000/quiz")
+        const res= await axios.get(`${API_URL}/quiz`)
         setAllQuiz(res.data)
         setAllQuizLoading(false)
       }catch(err){console.log(err)}
@@ -28,7 +28,7 @@ export const QuizProvider = ({ children }) => {
 
     async function findQuizById(quizId){
         try {
-            const res = await axios.get(`http://localhost:4000/quiz/${quizId}`)
+            const res = await axios.get(`${API_URL}/quiz/${quizId}`)
             setCurrentQuiz(res.data)
             setQuizLoading(false)
         } catch(err) {console.log(err)}
@@ -38,7 +38,7 @@ export const QuizProvider = ({ children }) => {
     async function createQuiz(newQuiz)
     {
       try{
-        const res = await axios.post(`http://localhost:4000/quiz`, newQuiz )
+        const res = await axios.post(`${API_URL}/quiz`, newQuiz )
         return res
       }catch(err) {console.log(err)}
     }
@@ -46,7 +46,7 @@ export const QuizProvider = ({ children }) => {
     async function updateQuizScore(quizId, score)
     {
       try{
-        const res = await axios.patch(`http://localhost:4000/quiz/${quizId}`, {"scores" : score})
+        const res = await axios.patch(`${API_URL}/quiz/${quizId}`, {"scores" : score})
         setCurrentQuiz(res.data)
         return res
 

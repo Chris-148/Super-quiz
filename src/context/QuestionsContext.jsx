@@ -14,7 +14,7 @@ export const QuestionsProvider = ({ children }) => {
   // Function to have all questions
   async function fetchAllQuestions() {
     try {
-      const response = await axios.get("http://localhost:4000/question");
+      const response = await axios.get(`${API_URL}/question`);
       setQuestions(response.data);
       setLoading(false);
     //   console.log(response.data);
@@ -60,7 +60,7 @@ export const QuestionsProvider = ({ children }) => {
 
   async function deleteQuestion(id){
     try{
-        await axios.delete(`http://localhost:4000/question/${id}`)
+        await axios.delete(`${API_URL}/question/${id}`)
         // use latest version of the variable questions with prevQuestions to be sure to have all previous change
         setQuestions((prevQuestions) => prevQuestions.filter((q) => q.id != id));
     }catch(error)
@@ -73,7 +73,7 @@ export const QuestionsProvider = ({ children }) => {
   async function addQuestion(question)
   {
     try {
-      const response = await axios.post("http://localhost:4000/question", question)
+      const response = await axios.post(`${API_URL}/question`, question)
       alert("Question added successfully!")
       // to add the new question insade the array state Questions 
       setQuestions((prevQuestions) => [...prevQuestions, response.data]);
@@ -87,7 +87,7 @@ export const QuestionsProvider = ({ children }) => {
 async function updateQuestion(question)
 {
   try {
-    const response = await axios.put(`http://localhost:4000/question/${question.id}`, question)
+    const response = await axios.put(`${API_URL}/question/${question.id}`, question)
     alert("Question update successfully!")
     // to update the new question insade the array state Questions 
     setQuestions((prevQuestions) =>

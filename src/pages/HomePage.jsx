@@ -39,19 +39,18 @@ export const HomePage = () => {
 
 
   return (
-    <div className="container">
-      <h1 className="text-center my-4">Super Quiz</h1>
-      <section className="d-flex flex-column align-items-center">
+    <>
+      <section className="home-section">
       <p>Welcome to Super Quiz, on this site you can : </p>
-      <ul >
-        <li>Generate quizzes</li>
-        <li>Create questions for future quizzes</li>
-        <li>Challenge others to a quiz they've already generated</li>
+      <ul className='home-ul'>
+        <li><i className="fa-regular fa-square-plus"></i>Generate quizzes</li>
+        <li><i className="fa-regular fa-circle-question"></i>Create questions for future quizzes</li>
+        <li><i className="fa-solid fa-trophy"></i>Challenge others to a quiz they've already generated</li>
       </ul>
       </section>  
-      <div className="border border-2 border-secondary mx-5">
+      <div className="home-form">
           <QuizForm/>
       </div>
-    </div>
+    </>
   )
 }

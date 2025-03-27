@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 export const Navbar = () => {
   return (
     <>
-    <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    {/* <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
   <div className="container-fluid">
     <a className="navbar-brand" href="#">Super Quiz</a>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,7 @@ export const Navbar = () => {
         </li>
         <li className="nav-item">
           <NavLink className="nav-link" to={"/quiz/1"}>Game Screen</NavLink>
-        </li>
+        </li> */}
         {/* <li className="nav-item dropdown">
           <NavLink className="nav-link dropdown-toggle" data-bs-toggle="dropdown" to="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</NavLink>
           <div className="dropdown-menu">
@@ -36,14 +36,33 @@ export const Navbar = () => {
             <NavLink className="dropdown-item" to="#">Separated link</NavLink>
           </div>
         </li> */}
-      </ul>
-      <form className="d-flex">
-        <input className="form-control me-sm-2" type="search" placeholder="Search"/>
-        <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      {/* </ul>
     </div>
   </div>
-</nav>
+</nav> */}
+<nav>
+      <div className="navbar">
+        <div className="nav-container">
+            <input className="checkbox" type="checkbox" name="" id="" />
+            <div className="hamburger-lines">
+              <span className="line line1"></span>
+              <span className="line line2"></span>
+              <span className="line line3"></span>
+            </div>  
+          <div className="logo">
+            <h1>Super Quiz</h1>
+          </div>
+          <div className="menu-items">
+            <li><NavLink className="nav-link active" to={'/'}>Home
+            </NavLink></li>
+            <li><NavLink className="nav-link" to={"/questions"}>Questions</NavLink></li>
+            <li><NavLink className="nav-link" to={"/questions/form"}>Question Form</NavLink></li>
+            <li><NavLink className="nav-link" to={"/quiz/1"}>Game Screen</NavLink></li>
+            <li>About</li>
+          </div>
+        </div>
+      </div>
+    </nav>
     </>
     )
 }

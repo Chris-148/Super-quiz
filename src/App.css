@@ -1,6 +1,13 @@
 @import url('https://fonts.cdnfonts.com/css/arcade-classic');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Fjalla+One&family=Press+Start+2P&display=swap');
 @import url('https://fonts.cdnfonts.com/css/rittswood-impresive');
+
+@font-face {
+  font-family: "Lazer84"; 
+  src: url("font/Lazer84.ttf") format("truetype"); 
+  font-weight: normal;
+  font-style: normal;
+}
 :root {
   --black: #0d0d0d;
   --blue: #00d4ff;
@@ -38,14 +45,17 @@ html {
   margin: 30px 50px;
 }
 h1 {
-  font-family: 'RittswoodImpresive_6', sans-serif;
-font-family: 'RittswoodImpresiveBl_6', sans-serif;
+  font-family: "Lazer84";
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.7rem;
   margin: 10px 0px;
   color: var(--pink);
-  text-shadow: 0 0 10px rgba(201, 10, 207, 0.582),
-    0 0 20px rgba(248, 248, 248, 0.726);
+  text-shadow: 
+  0 0 5px white, 
+  0 0 10px white, 
+  0 0 20px white,
+  0 0 40px var(--pink),  
+  0 0 80px var(--pink);
 }
 h2 {
   font-family: "Press Start 2P", system-ui;
@@ -494,6 +504,10 @@ option:hover, option:hover.selection{
     height: 30px;
     line-height: 30px;
     border-top: 1px solid white;
+    border-radius: 3px;
+    box-shadow:  0 0 5px white, 
+    0 0 10px white, 
+    0 0 20px white;
     background-color: var(--black);
     color: var(--pink);
   }
@@ -531,6 +545,14 @@ option:hover, option:hover.selection{
   .details-tools-container{
     display: flex;
     justify-content: space-between;
+  }
+
+  .points{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    color: var(--yellow);
   }
 
 @media screen and (min-width: 610px){ 

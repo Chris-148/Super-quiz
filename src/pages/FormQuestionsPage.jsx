@@ -1,13 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { QuestionsContext } from "../context/QuestionsContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid'
 
 export const FormQuestionsPage = () => {
   const {addQuestion, findQuestionById , loading, updateQuestion, questionsTopic} = useContext(QuestionsContext)
   const [image,setImage] = useState(null)
   const [audio,setAudio] = useState(null)
   const [newQuestionToAdd, setNewQuestionToAdd] = useState({
+    id: uuidv4(),
     question: "",
     topic: "",
     type: "",
@@ -18,6 +20,7 @@ export const FormQuestionsPage = () => {
     audio: "",
   });
 
+  let nav = useNavigate();
   // initailize params
   const { questionId } = useParams();
 
@@ -27,6 +30,19 @@ export const FormQuestionsPage = () => {
       const updateQuestion = findQuestionById(questionId);
       // console.log(findQuestionById(questionId))
       setNewQuestionToAdd(updateQuestion);
+    }
+    if(!loading && !questionId){
+      setNewQuestionToAdd({
+        id: uuidv4(),
+        question: "",
+        topic: "",
+        type: "",
+        good_answer: "",
+        other_answer: ["","",""],
+        difficulty: "easy",
+        img: "",
+        audio: "",
+      })
     }
   }, [loading, questionId]);
 
@@ -92,15 +108,18 @@ export const FormQuestionsPage = () => {
     }
 
     setNewQuestionToAdd({
-            question: "",
-            topic: "",
-            type: "",
-            good_answer: "",
-            other_answer: ["","",""],
-            difficulty: "easy",
-            img: "",
-            audio: ""
-          })
+      id: uuidv4(),
+      question: "",
+      topic: "",
+      type: "",
+      good_answer: "",
+      other_answer: ["","",""],
+      difficulty: "easy",
+      img: "",
+      audio: "",
+    })
+      nav('/questions')
+        
    
   }
 

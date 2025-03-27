@@ -52,7 +52,7 @@ export const DetailsQuestionsPage = () => {
         <h3 className="details-h3">Difficulty : {question.difficulty}</h3>
         <h4 className="details-h4">created by : {question.userId}</h4>
         <div className="details-tools-container">
-          <Link to="/questions" className="btn btn-info">Go back to all Questions</Link>
+          <Link to="/questions" className="btn text-light">Go back to all Questions</Link>
           <Link to={`/questions/form/${question.id}`} className="btn text-center text-warning"><i className="fa-solid fa-pen"></i></Link>
           <Link className="btn text-danger text-center" onClick={()=> {
             deleteQuestion(question.id)

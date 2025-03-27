@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { API_URL } from "../config/config";
 
 export const QuestionsContext = createContext();
 

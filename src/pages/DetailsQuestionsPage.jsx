@@ -2,6 +2,7 @@
 import { useEffect, useContext, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { QuestionsContext } from "../context/QuestionsContext";
+import toast from "react-hot-toast";
 
 export const DetailsQuestionsPage = () => {
 
@@ -31,10 +32,12 @@ export const DetailsQuestionsPage = () => {
   return (
     <>
     
-      <div className="container border border-2 border-primary m-5 p-5">
-        <h2 className="text-center py-5 text-secondary">{question.question}</h2>
-        <h3 className="px-3">Answer : </h3>
-        <ul className="mx-3">
+      <div className="details-container">
+        {question.img ? <div className="img-container"><img src={question.img} /></div> : ""}
+        {question.audio ? <audio controls src={question.audio}/> : "" }
+        <h2 className="text-center">{question.question}</h2>
+        <h3 className="details-h3">Answer : </h3>
+        <ul className="">
           <li className="text-success">{question.good_answer}</li>
           {
 
@@ -46,15 +49,16 @@ export const DetailsQuestionsPage = () => {
 
           }
         </ul>
-        <h3 className="px-3">Difficulty : {question.difficulty}</h3>
-        <h4 className="text-end px-3 my-5">created by : {question.userId}</h4>
-        <div className="d-flex justify-content-around">
+        <h3 className="details-h3">Difficulty : {question.difficulty}</h3>
+        <h4 className="details-h4">created by : {question.userId}</h4>
+        <div className="details-tools-container">
           <Link to="/questions" className="btn btn-info">Go back to all Questions</Link>
-          <Link to={`/questions/form/${question.id}`} className="btn btn-warning">Update</Link>
-          <button className="btn btn-danger" onClick={()=> {
-            deleteQuestion(question.id);
+          <Link to={`/questions/form/${question.id}`} className="btn text-center text-warning"><i className="fa-solid fa-pen"></i></Link>
+          <Link className="btn text-danger text-center" onClick={()=> {
+            deleteQuestion(question.id)
+            toast.success('Question deleted');
             nav('/questions');
-          }}>Delete</button>
+          }}><i className="fa-solid fa-trash"></i></Link>
         </div>
       </div>
     </>

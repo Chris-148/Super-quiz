@@ -17,7 +17,7 @@ export const QuizStatusBar = ({currentQuestionIndex}) => {
 
   return (
     <div>
-        <div className="progress my-3" style={{ height: "20px" }}>
+        <div className="progress my-3" >
             <div
                 className="progress-bar"
                 role="progressbar"

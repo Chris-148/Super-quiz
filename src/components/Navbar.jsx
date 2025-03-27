@@ -53,11 +53,11 @@ export const Navbar = () => {
             <h1>Super Quiz</h1>
           </div>
           <div className="menu-items">
-            <li><NavLink className="nav-link active" to={'/'}>Home
+            <li><NavLink className="nav-link active" to={'/'}>Create Quiz
             </NavLink></li>
-            <li><NavLink className="nav-link" to={"/questions"}>Questions</NavLink></li>
-            <li><NavLink className="nav-link" to={"/questions/form"}>Question Form</NavLink></li>
-            <li><NavLink className="nav-link" to={"/quiz/1"}>Game Screen</NavLink></li>
+            <li><NavLink className="nav-link" to={"/questions"}>Questions Data</NavLink></li>
+            <li><NavLink className="nav-link" to={"/questions/form"}>Add Question</NavLink></li>
+            <li><NavLink className="nav-link" to={"/quiz/all"}>Compete / See other Quiz</NavLink></li>
             <li>About</li>
           </div>
         </div>

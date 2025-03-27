@@ -4,20 +4,16 @@ import { QuestionsContext } from "../context/QuestionsContext";
 import { useParams } from "react-router-dom";
 
 export const FormQuestionsPage = () => {
-  const {
-    addQuestion,
-    findQuestionById,
-    loading,
-    updateQuestion,
-    questionsTopic,
-  } = useContext(QuestionsContext);
+  const {addQuestion, findQuestionById , loading, updateQuestion, questionsTopic} = useContext(QuestionsContext)
+  const [image,setImage] = useState(null)
+  const [audio,setAudio] = useState(null)
   const [newQuestionToAdd, setNewQuestionToAdd] = useState({
     question: "",
     topic: "",
     type: "",
     good_answer: "",
-    other_answer: ["", "", ""],
-    difficulty: "Easy",
+    other_answer: ["","",""],
+    difficulty: "easy",
     img: "",
     audio: "",
   });
@@ -34,25 +30,78 @@ export const FormQuestionsPage = () => {
     }
   }, [loading, questionId]);
 
-  function handleCreateQuestion(event) {
-    event.preventDefault();
-    if (questionId) {
-      updateQuestion(newQuestionToAdd);
-      //  console.log(newQuestionToAdd)
-    } else {
-      addQuestion(newQuestionToAdd);
+  async function handleCreateQuestion(event){
+    event.preventDefault()
+    if(questionId){
+      if(image){
+        const data = new FormData();
+        data.append('file', image);
+        data.append("upload_preset", "quiz_game");
+        data.append("cloud_name", "dovwi3ybd");
+        const response = await axios.post("https://api.cloudinary.com/v1_1/dovwi3ybd/image/upload", data);
+        const newQuestionWithImage = {...newQuestionToAdd, ["img"] : response.data.url};
+        if(newQuestionWithImage){
+          updateQuestion(newQuestionWithImage);
+        }
+      }else if(audio){
+        const data = new FormData();
+        data.append('file', audio);
+        data.append("upload_preset", "quiz_game");
+        data.append("cloud_name", "dovwi3ybd");
+        const response = await axios.post("https://api.cloudinary.com/v1_1/dovwi3ybd/video/upload", data);
+        console.log(response);
+        const newQuestionWithAudio = {...newQuestionToAdd, ["audio"] : response.data.url}
+        if(newQuestionWithAudio){
+          updateQuestion(newQuestionWithAudio);
+        }
+      } else{
+        updateQuestion(newQuestionToAdd)
+      }
+        
+     
+      // updateQuestion(newQuestionToAdd)
+    //  console.log(newQuestionToAdd)
+    }else{
+      if(image){
+        const data = new FormData();
+        data.append('file', image);
+        data.append("upload_preset", "quiz_game");
+        data.append("cloud_name", "dovwi3ybd");
+        const response = await axios.post("https://api.cloudinary.com/v1_1/dovwi3ybd/image/upload", data);
+          const newQuestionWithImage = {...newQuestionToAdd, ["img"] : response.data.url};
+        if(newQuestionWithImage){
+        addQuestion(newQuestionWithImage);
+        }
+        
+      }else if(audio){
+        const data = new FormData();
+        data.append('file', audio);
+        data.append("upload_preset", "quiz_game");
+        data.append("cloud_name", "dovwi3ybd");
+        const response = await axios.post("https://api.cloudinary.com/v1_1/dovwi3ybd/video/upload", data);
+        console.log(response);
+        const newQuestionWithAudio = {...newQuestionToAdd, ["audio"] : response.data.url}
+        if(newQuestionWithAudio){
+          addQuestion(newQuestionWithAudio);
+        }
+      }else{
+        addQuestion(newQuestionToAdd)
+        
+      }
+      
     }
 
     setNewQuestionToAdd({
-      question: "",
-      topic: "",
-      type: "",
-      good_answer: "",
-      other_answer: ["", "", ""],
-      difficulty: "Easy",
-      img: "",
-      audio: "",
-    });
+            question: "",
+            topic: "",
+            type: "",
+            good_answer: "",
+            other_answer: ["","",""],
+            difficulty: "easy",
+            img: "",
+            audio: ""
+          })
+   
   }
 
   // function to update the wrong answers in array
@@ -78,138 +127,91 @@ export const FormQuestionsPage = () => {
   }
 
   return (
-    <>
-      <form className="questions-form" onSubmit={handleCreateQuestion}>
-        
-          <div className="group-form-container">
-            <div className="select-container">
-              <label htmlFor="dropdown" className="form-label">
-                Type:
-              </label>
-              <select
-                className="form-select form-select-sm"
-                id="dropdown"
-                name="type"
-                value={newQuestionToAdd.type}
-                onChange={handleOnChange}
-              >
-                <option value="Text Question">Text Question</option>
-                <option value="Image Question">Image Question</option>
-                <option value="Audio Question">Audio Question</option>
-              </select>
-            </div>
+   
+    <> 
+  
+  <form className="questions-form" onSubmit={handleCreateQuestion}>
+    <div className="group-form-container">
 
-            <div className="select-container">
-              <label htmlFor="dropdown1" className="form-label">
-                Topic:
-              </label>
-              <select
-                className="form-select form-select-sm"
-                id="dropdown1"
-                name="topic"
-                value={newQuestionToAdd.topic}
-                onChange={handleOnChange}
-              >
-                {questionsTopic.map((topic, index) => {
-                  return (
-                    <option key={index} value={topic}>
-                      {topic}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
+    <div className="select-container">
+      <label htmlFor="dropdown" className="form-label">Type:</label>
+        <select className="form-select form-select-sm" id="dropdown" name="type" value={newQuestionToAdd.type} onChange={handleOnChange}>
+          <option value="Text Question">Text Question</option>
+          <option value="Image Question">Image Question</option>
+          <option value="Audio Question">Audio Question</option>
+        </select>
+      </div>
 
-            <div className="select-container">
-              <label htmlFor="dropdown" className="form-label">
-                Difficulty:
-              </label>
-              <select
-                className="form-select form-select-sm"
-                id="dropdown"
-                name="difficulty"
-                value={newQuestionToAdd.difficulty}
-                onChange={handleOnChange}
-              >
-                <option value="Easy">Easy</option>
-                <option value="Medium">Medium</option>
-                <option value="Hard">Hard</option>
-              </select>
-            </div>
-          </div>
-        
 
-        <div className="input-container">
+      <div className="select-container">
+        <label htmlFor="dropdown1" className="form-label">Topic:</label>
+        <select className="form-select form-select-sm" id="dropdown1" name="topic" value={newQuestionToAdd.topic} onChange={handleOnChange}>
+          {
+            questionsTopic.map((topic , index) => {
+              return (
+                <option key={index} value={topic}>{topic}</option>
+              )
+            })
+          }
           
-          <textarea
-            className="form-control"
-            rows="4"
-            type="text"
-            name="question"
-            value={newQuestionToAdd.question}
-            
-            id="Question"
-            placeholder=" "
-            required
-            onChange={handleOnChange}
-          /><label htmlFor="Question" className="label">
-           Your Question
-          </label>
-          <div className="underline"></div>
-        </div>
+        </select>
+      </div>
 
-        {newQuestionToAdd.type === "Image Question" ? (
-          <div className="input-container">
-            <label htmlFor="ImgLink" className="form-label">
-              Question
-            </label>
-            <input
-              className="form-control"
-              type="url"
-              value={newQuestionToAdd.img}
-              name="img"
-              id="ImgLink"
-              placeholder="URL to Image"
-              onChange={handleOnChange}
-            />
-          </div>
-        ) : null}
+      <div className="select-container">
+      <label htmlFor="dropdown" className="form-label">Difficulty:</label>
+        <select className="form-select form-select-sm" id="dropdown" name="difficulty" value={newQuestionToAdd.difficulty} onChange={handleOnChange}>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+      </div>
 
-        {newQuestionToAdd.type === "Audio Question" ? (
-          <div className="input-container">
-            <label htmlFor="AudioLink" >
-              Question
-            </label>
-            <input
-              className="form-control"
-              type="url"
-              value={newQuestionToAdd.audio}
-              name="audio"
-              id="AudioLink"
-              placeholder="URL to Audio"
-              onChange={handleOnChange}
-            />
-          </div>
-        ) : null}
+   </div>
 
-        {/* Correct Answer Input */}
-        <div className="input-container">
-          
-          <input
-            type="text"
-            name="good_answer"
-            className="form-control"
-            value={newQuestionToAdd.good_answer}
-            onChange={handleOnChange}
-            placeholder=" "
+  <div className="input-container">
+    
+    <textarea className="form-control" rows="4" type="text" name="question" value={newQuestionToAdd.question} id="Question" placeholder=" " onChange={handleOnChange} />
+    <label htmlFor="Question" className="label">Your Question</label>
+    <div className="underline"></div>
+  </div>
+
+  {(newQuestionToAdd.type === "Image Question")?
+     <div className="input-container">
+     <label htmlFor="ImgLink" className="form-label">Question</label>
+     <input className="form-control" type="file"  name="img" id="ImgLink" placeholder="URL to Image" onChange={(e) => setImage(e.target.files[0])} />
+   </div>: null
+   }
+
+{(newQuestionToAdd.type === "Audio Question")?
+     <div className="input-container">
+     <label htmlFor="AudioLink" className="form-label">Question</label>
+     <input className="form-control" type="file"  name="audio" id="AudioLink" placeholder="URL to Audio" onChange={(e) => { setAudio(e.target.files[0])} } />
+   </div>: null
+   }
+
+    {/* Correct Answer Input */}
+  <div className="input-container">
+        
+        <input
+          type="text"
+          name='good_answer'
+          className="form-control"
+          value={newQuestionToAdd.good_answer}
+          onChange={handleOnChange}
+          placeholder=" "
             required=" "
-          /><label className="label">Correct Answer:</label>
-          <div className="underline"></div>
-        </div>
+        />
+        <label className="label">Correct Answer:</label>
+        <div className="underline"></div>
+      </div>  
 
-        <div className="input-container">
-          <label>Wrong Answers:</label>
-          {newQuestionToAdd.other_answer.map((wrongAnswer, index) => {
+    <div className="input-container">
+      <label >Wrong Answers:</label>
+      {
+      
+      newQuestionToAdd.other_answer.map((wrongAnswer, index)=>{
+        
+      
             return (
               <div key={index} className="question-form-wrong">
               <input

@@ -56,7 +56,7 @@ export const Navbar = () => {
               <span className="line line3"></span>
             </div>  
           <div className="logo">
-            <h1>Super Quiz</h1>
+            <h1>Call of Quiz</h1>
           </div>
           <div className="menu-items">
             <li><NavLink  to={'/'}>Create Quiz

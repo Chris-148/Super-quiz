@@ -26,6 +26,6 @@ export const QuizTimer = () => {
   },[timeRun])
 
   return (
-    <div className="timer-container">{timeLeft/1000}</div>
+    <div className={`timer-container`} >{timeLeft/1000}</div>
   )
 }

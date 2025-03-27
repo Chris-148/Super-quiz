@@ -547,3 +547,7 @@ option:hover, option:hover.selection{
 .text-success{
   color: var(--violet);
 }
+
+.text-light{
+  color:white
+}

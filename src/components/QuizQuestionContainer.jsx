@@ -118,13 +118,14 @@ export const QuizQuestionContainer = () => {
       <p className="quiz-point">Points you can win: {questionScore}</p>
       <p className="quiz-point">Your total score: {totalScore}</p>
       {currentQuestion.img ? (
-        <div>
+        <div className="img-container">
           <img src={currentQuestion.img} alt="" />
         </div>
       ) : null}
       {currentQuestion.audio ? (
-        <div>
-          <audio src={currentQuestion.audio}></audio>
+        <div className="img-container">
+          <audio controls  autoPlay src={currentQuestion.audio}
+          />
         </div>
       ) : null}
       <div className="quiz-answer-container">

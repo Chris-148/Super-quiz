@@ -1,7 +1,12 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { useState, useEffect } from "react";
+import { NavLink, useLocation } from 'react-router-dom'
 
 export const Navbar = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    setIsChecked(false);
+  }, [location.pathname]);
   return (
     <>
     {/* <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
@@ -43,7 +48,8 @@ export const Navbar = () => {
 <nav>
       <div className="navbar">
         <div className="nav-container">
-            <input className="checkbox" type="checkbox" name="" id="" />
+            <input className="checkbox" type="checkbox" name="" id="" checked={isChecked}
+        onChange={() => setIsChecked(!isChecked)}/>
             <div className="hamburger-lines">
               <span className="line line1"></span>
               <span className="line line2"></span>
@@ -53,11 +59,11 @@ export const Navbar = () => {
             <h1>Super Quiz</h1>
           </div>
           <div className="menu-items">
-            <li><NavLink className="nav-link active" to={'/'}>Create Quiz
+            <li><NavLink  to={'/'}>Create Quiz
             </NavLink></li>
-            <li><NavLink className="nav-link" to={"/questions"}>Questions Data</NavLink></li>
-            <li><NavLink className="nav-link" to={"/questions/form"}>Add Question</NavLink></li>
-            <li><NavLink className="nav-link" to={"/quiz/all"}>Compete / See other Quiz</NavLink></li>
+            <li><NavLink  to={"/questions"}>Questions Data</NavLink></li>
+            <li><NavLink  to={"/questions/form"}>Add Question</NavLink></li>
+            <li><NavLink  to={"/quiz/all"}>Compete / See other Quiz</NavLink></li>
             <li>About</li>
           </div>
         </div>

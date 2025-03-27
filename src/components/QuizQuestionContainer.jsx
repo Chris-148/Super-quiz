@@ -111,17 +111,7 @@ export const QuizQuestionContainer = () => {
   // 3) Check if the answer is correct on submit button
   // 4) on submissinif answer is correct add the score to the score to the data base and add userId in the beginning of the player
 
-  function renderLoading(){
-    setTimeout(() =>{ return (
-      <div class="loader">
-      <div data-glitch="Loading..." class="glitch">
-        Loading...
-      </div>
-    </div>
-
-    )}, 1000)
-  }
-
+ 
   return !quizLoading ? (
     <div className="container quiz-container">
       <QuizStatusBar currentQuestionIndex={currentQuestionIndex} />
@@ -164,5 +154,11 @@ export const QuizQuestionContainer = () => {
         </div>
       </div>
     </div>
-  ) : (renderLoading)
+  ) : (
+    <div class="loader">
+      <div data-glitch="Loading..." class="glitch">
+        Loading...
+      </div>
+    </div>
+  )
 };

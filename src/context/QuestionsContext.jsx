@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../config/config";
-
+import toast from "react-hot-toast";
 export const QuestionsContext = createContext();
 
 export const QuestionsProvider = ({ children }) => {
@@ -74,8 +74,8 @@ export const QuestionsProvider = ({ children }) => {
   async function addQuestion(question)
   {
     try {
-      const response = await axios.post(`${API_URL}/question`, question)
-      alert("Question added successfully!")
+      const response = await axios.post(`${API_URL}/question`, question);
+      toast.success("Question added successfully!")
       // to add the new question insade the array state Questions 
       setQuestions((prevQuestions) => [...prevQuestions, response.data]);
       
@@ -89,7 +89,7 @@ async function updateQuestion(question)
 {
   try {
     const response = await axios.put(`${API_URL}/question/${question.id}`, question)
-    alert("Question update successfully!")
+    toast.success("Question update successfully!")
     // to update the new question insade the array state Questions 
     setQuestions((prevQuestions) =>
       prevQuestions.map((q) => (q.id == question.id ? response.data : q))

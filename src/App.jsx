@@ -41,7 +41,8 @@ function App() {
         }
       }}
     />
-    <div className="container-fluid">
+    
+    <div className="container">
 
       {/* ROUTER */}
       <Routes>

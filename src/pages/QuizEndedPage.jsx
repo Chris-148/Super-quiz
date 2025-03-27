@@ -34,23 +34,27 @@ export const QuizEndedPage = () => {
 
   
   return (
-    <div>
-    <div>You made it!</div>
+    <div className='container'>
+    <h2 className='text-center'>You made it!</h2>
     {/* if  */}
-    <div>Your score: {totalScore}</div>
-    <label htmlFor="Player Name">Player Name</label>
-    <input type="text" id="Player Name" value={playerName} onChange={(event)=>setPlayerName(event.target.value)} />
-    <button disabled={scoreIsSubmitted || !playerName} onClick={()=>{handleSubmitScore(currentQuiz.id, totalScore, playerName)}}>Submit your score</button>
+    <h3 className='your-score'>Your score: {totalScore}</h3>
+    <div className="input-container">
+    
+    <input type="text" id="Player Name" placeholder=' ' required value={playerName} onChange={(event)=>setPlayerName(event.target.value)} /><label htmlFor="Player Name" className='label'>Player Name</label>
+    <div className="underline"></div>
+    </div>
+    <div className="text-center"> <button className='btn' disabled={scoreIsSubmitted || !playerName} onClick={()=>{handleSubmitScore(currentQuiz.id, totalScore, playerName)}}>Submit your score</button></div>
+   
     {/* u can do it */}
     {/* scoreIsSubmitted is used to check if the Player has submitted his name and score */}
     {scoreIsSubmitted?(
-    <div>
-    <div>Top 10 Highscores</div>
+    <div className='highscore-container'>
+    <h2 className='text-center'>Top 10 Highscores</h2>
     {top10Scores?.map((scoreItem, index)=>{
       const userId = Object.keys(scoreItem)[0]; 
       const score = scoreItem[userId];
       return (
-        <div key={index} className="d-flex flex-row p-2 justify-content-between align-items-center">
+        <div key={index} className="user-score-container">
           <div className="col-4">{userId}</div>
           <div className="col-4">{score}</div>
         </div>
@@ -58,8 +62,8 @@ export const QuizEndedPage = () => {
     }
     </div>)
     :null}
+    <div className="text-center"><button onClick={handlePlayAgain} className="btn btn-success">Play Again</button></div>
     
-    <button onClick={handlePlayAgain} className="col-4">Play Again</button>
     {/* map of the Highscores */}
     </div>
   )

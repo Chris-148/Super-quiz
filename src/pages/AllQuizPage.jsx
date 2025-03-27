@@ -15,26 +15,26 @@ export const AllQuizPage = () => {
   return (
     !allQuizLoading?
     <>
-        <div className="container mt-3">
-            <h2 className="text-center my-3">All Quiz</h2>
-            <p className="text-center my-2">Challenge other player and try to do a better score. Good Luck & Have Fun</p>
+        
+            <h2 className="text-center">All Quiz</h2>
+            <p className="text-center p-all-quiz">Challenge other player and try to do a better score. Good Luck & Have Fun</p>
             {
                 
                 allQuiz.map(quiz => {
                     return( 
-                    <div className="card my-4 border-secondary" key={quiz.id}>
-                        <div className="d-flex justify-content-between my-4 ">
-                            <div>Topic : {quiz.topic}</div>
-                            <div>Difficulty : {quiz.difficulty}</div>
-                            <div>questions : {quiz.nbrQuestions}</div>
-                            <div>created by : {quiz.userId}</div>
-                            <Link to={`/quiz/${quiz.id}`} className="btn btn-success">Play</Link>
-                        </div>
+                    <div className="tab-container tab-content" key={quiz.id}>
+                        
+                            <div className='col-2'>Topic : {quiz.topic ? quiz.topic : "All Topic"}</div>
+                            <div className='col-2'>Difficulty : {quiz.difficulty? quiz.difficulty : "All Difficulty"}</div>
+                            <div className='col-2'>questions : {quiz.nbrQuestions}</div>
+                            <div className='col-2'>created by : {quiz.userId}</div>
+                            <Link to={`/quiz/${quiz.id}`} className="btn btn-success text-center 'col-2'">Play</Link>
+                        
                     </div>)
                 })
             }
 
-        </div>
+        
     
     
     </>

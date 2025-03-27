@@ -40,6 +40,9 @@ export const QuizQuestionContainer = () => {
 
   useEffect(() => {
     // if(!quizId) return;
+    if(currentQuiz && currentQuiz.id != quizId){
+      findQuizById(quizId);
+    }
     if (quizLoading) {
       findQuizById(quizId);
     } else if (!quizLoading) {
@@ -48,7 +51,7 @@ export const QuizQuestionContainer = () => {
       setAnswerArray(randomizeAnswers(currentQuiz));
       setCurrentQuestion(currentQuiz.QuestionArray[currentQuestionIndex]);
     }
-  }, [quizLoading, currentQuiz, currentQuestionIndex]); //later update by quiz id
+  }, [quizLoading, quizId, currentQuiz, currentQuestionIndex]); //later update by quiz id
 
   // Calculate the score for this question based on difficulty
   useEffect(() => {
@@ -108,6 +111,17 @@ export const QuizQuestionContainer = () => {
   // 3) Check if the answer is correct on submit button
   // 4) on submissinif answer is correct add the score to the score to the data base and add userId in the beginning of the player
 
+  function renderLoading(){
+    setTimeout(() =>{ return (
+      <div class="loader">
+      <div data-glitch="Loading..." class="glitch">
+        Loading...
+      </div>
+    </div>
+
+    )}, 1000)
+  }
+
   return !quizLoading ? (
     <div className="container quiz-container">
       <QuizStatusBar currentQuestionIndex={currentQuestionIndex} />
@@ -124,8 +138,7 @@ export const QuizQuestionContainer = () => {
       ) : null}
       {currentQuestion.audio ? (
         <div className="img-container">
-          <audio controls  autoPlay src={currentQuestion.audio}
-          />
+          <audio controls autoPlay src={currentQuestion.audio} />
         </div>
       ) : null}
       <div className="quiz-answer-container">
@@ -151,7 +164,5 @@ export const QuizQuestionContainer = () => {
         </div>
       </div>
     </div>
-  ) : (
-    <div>loading</div>
-  );
+  ) : (renderLoading)
 };

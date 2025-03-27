@@ -554,7 +554,7 @@ option:hover, option:hover.selection{
 
 
 .loader{
-  
+  margin: auto
 }
 .glitch {
   position: relative;

@@ -64,7 +64,7 @@ export const Navbar = () => {
             <li><NavLink  to={"/questions"}>Questions Data</NavLink></li>
             <li><NavLink  to={"/questions/form"}>Add Question</NavLink></li>
             <li><NavLink  to={"/quiz/all"}>Compete / See other Quiz</NavLink></li>
-            <li>About</li>
+            <li><NavLink to={"/about"}>About</NavLink></li>
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ import { Footer } from './components/Footer'
 import toast, { Toaster } from 'react-hot-toast';
 import { QuizEndedPage } from './pages/QuizEndedPage'
 import { AllQuizPage } from './pages/AllQuizPage'
+import { AboutPage } from './pages/AboutPage'
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
         <Route path='/questions/form/:questionId' element={<FormQuestionsPage/>}/>
         <Route path="/questions/details/:questionId" element={<DetailsQuestionsPage/>}/>
         <Route path="/quiz/:quizId/:totalScore/end" element={<QuizEndedPage/>}/>
+        <Route path="/about" element={<AboutPage/>}/>
         <Route path="*" element={<NotFoundPage/>}/>
       </Routes>
      </div>

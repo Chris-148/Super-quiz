@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { QuizTimer } from "./QuizTimer";
 import { QuizStatusBar } from "./QuizStatusBar";
 import { Loading } from "./Loading";
+import toast from "react-hot-toast";
 
 export const QuizQuestionContainer = () => {
   const { quizId } = useParams();
@@ -81,6 +82,9 @@ export const QuizQuestionContainer = () => {
   async function handleNextQuestion() {
     if (selectedAnswer === currentQuestion.good_answer) {
       setTotalScore((prevScore) => prevScore + questionScore);
+      toast.success("Correct Answer!!!")
+    }else{
+      toast.error("WROOOOONG!!")
     }
     if (currentQuestionIndex < currentQuiz.QuestionArray.length - 1) {
       setCurrentQuestionIndex((prevQuestionIndex) => prevQuestionIndex + 1);

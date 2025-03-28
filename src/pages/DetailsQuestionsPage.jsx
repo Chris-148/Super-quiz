@@ -51,6 +51,7 @@ export const DetailsQuestionsPage = () => {
           }
         </ul>
         <h3 className="details-h3">Difficulty : {question.difficulty}</h3>
+        <h3 className="details-h3">Topic : {question.topic}</h3>
         <h4 className="details-h4">created by : {question.userId}</h4>
         <div className="details-tools-container">
           <Link to="/questions" className="btn text-light">Go back to all Questions</Link>

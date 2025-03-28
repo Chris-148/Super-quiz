@@ -196,14 +196,14 @@ export const FormQuestionsPage = () => {
 
   {(newQuestionToAdd.type === "Image Question")?
      <div className="input-container">
-     <label htmlFor="ImgLink" className="form-label">Question</label>
+     <label htmlFor="ImgLink" className="form-label">Question Image</label>
      <input className="form-control" type="file"  name="img" id="ImgLink" placeholder="URL to Image" onChange={(e) => setImage(e.target.files[0])} />
    </div>: null
    }
 
 {(newQuestionToAdd.type === "Audio Question")?
      <div className="input-container">
-     <label htmlFor="AudioLink" className="form-label">Question</label>
+     <label htmlFor="AudioLink" className="form-label">Question Audio</label>
      <input className="form-control" type="file"  name="audio" id="AudioLink" placeholder="URL to Audio" onChange={(e) => { setAudio(e.target.files[0])} } />
    </div>: null
    }

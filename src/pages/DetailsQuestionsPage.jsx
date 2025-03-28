@@ -18,6 +18,7 @@ export const DetailsQuestionsPage = () => {
   // initialize navigate
   let nav = useNavigate()
 
+
   // recover the question data from db.json-server
   useEffect(() => {
     
@@ -26,9 +27,9 @@ export const DetailsQuestionsPage = () => {
       setQuestion(findQuestionById(questionId));
     }
   }, [loading, questionId]);
-  if(!question){
-    nav('/questions')
-  }
+  // if(!question){
+  //   nav('/questions')
+  // }
   return (
     <>
     
@@ -54,10 +55,10 @@ export const DetailsQuestionsPage = () => {
         <div className="details-tools-container">
           <Link to="/questions" className="btn text-light">Go back to all Questions</Link>
           <Link to={`/questions/form/${question.id}`} className="btn text-center text-warning"><i className="fa-solid fa-pen"></i></Link>
-          <Link className="btn text-danger text-center" onClick={()=> {
-            deleteQuestion(question.id)
+          <Link to="/questions" className="btn text-danger text-center" onClick={()=> {
+            deleteQuestion(question.id);
             toast.success('Question deleted');
-            nav('/questions');
+            
           }}><i className="fa-solid fa-trash"></i></Link>
         </div>
       </div>

@@ -55,7 +55,7 @@ export const QuestionsProvider = ({ children }) => {
 
   //function to find one question by id
   function findQuestionById(id) {
-    console.log(questions.find((question) => question.id == id))
+    // console.log(questions.find((question) => question.id == id))
     return questions.find((question) => question.id == id);
   }
 

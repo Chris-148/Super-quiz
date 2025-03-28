@@ -1,4 +1,6 @@
 import React from "react";
+import vincent from "/src/images/vincent.jpg"
+import chris from "/src/images/Chris.jpg"
 
 export const AboutPage = () => {
   return (
@@ -13,7 +15,7 @@ export const AboutPage = () => {
         <div className="flip-card-inner">
           <div className="flip-card-front">
             <div className="profile-image">
-                <div className="icon-img"><img src="/src/images/vincent.jpg" alt="" /></div>
+                <div className="icon-img"><img src={vincent} alt="" /></div>
               <div className="name">Vincent Ferreira</div>
             </div>
           </div>
@@ -84,7 +86,7 @@ export const AboutPage = () => {
         <div className="flip-card-outer">
           <div className="flip-card-front">
             <div className="profile-image">
-                <div className="icon-img"><img src="/src/images/Chris.jpg" alt="" /></div>
+                <div className="icon-img"><img src={chris} alt="" /></div>
               <div className="name">Christian Wirsching</div>
             </div>
           </div>

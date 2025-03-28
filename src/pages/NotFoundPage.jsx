@@ -1,5 +1,5 @@
 import React from 'react'
-
+import notfound from "/src/images/PageNotFoundimg.avif"
 
 export const NotFoundPage = () => {
 
@@ -8,7 +8,7 @@ export const NotFoundPage = () => {
   return (  
     <div>
       <img 
-        src="/src/images/PageNotFoundimg.avif"
+        src={notfound}
         alt="404 Not Found" 
         style={{ width: '100%', height: 'auto' }} // Adjust the size as needed
       />

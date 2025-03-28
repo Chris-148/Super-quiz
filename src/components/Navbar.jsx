@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink, useLocation } from 'react-router-dom'
-
+import coq from "/src/images/Coq.png"
 export const Navbar = () => {
   const [isChecked, setIsChecked] = useState(false);
   const location = useLocation();
@@ -54,8 +54,10 @@ export const Navbar = () => {
               <span className="line line1"></span>
               <span className="line line2"></span>
               <span className="line line3"></span>
-            </div>  
+            </div> 
+          {/* <div className="img-logo"><img src={coq} alt="" /></div>  */}
           <div className="logo">
+            
             <h1>Call of Quiz</h1>
           </div>
           <div className="menu-items">

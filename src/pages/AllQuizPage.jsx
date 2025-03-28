@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { QuizContext } from '../context/QuizContext'
 import {Link} from "react-router-dom"
+import { Loading } from '../components/Loading'
 
 export const AllQuizPage = () => {
     const {allQuiz, allQuizLoading, findAllQuiz} = useContext(QuizContext)
@@ -40,7 +41,7 @@ export const AllQuizPage = () => {
     </>
     :
     <>
-        <div>loading...</div>
+        <Loading/>
     </>
     
   )

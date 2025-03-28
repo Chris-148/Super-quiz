@@ -5,6 +5,7 @@ import { QuestionsContext } from "../context/QuestionsContext";
 import { useNavigate } from "react-router-dom";
 import { QuizTimer } from "./QuizTimer";
 import { QuizStatusBar } from "./QuizStatusBar";
+import { Loading } from "./Loading";
 
 export const QuizQuestionContainer = () => {
   const { quizId } = useParams();
@@ -155,10 +156,6 @@ export const QuizQuestionContainer = () => {
       </div>
     </div>
   ) : (
-    <div class="loader">
-      <div data-glitch="Loading..." class="glitch">
-        Loading...
-      </div>
-    </div>
+    <Loading/>
   )
 };

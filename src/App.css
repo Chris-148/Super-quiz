@@ -594,7 +594,11 @@ option:hover, option:hover.selection{
 
 
 .loader{
-  margin: auto
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 76vh;
 }
 .glitch {
   position: relative;

@@ -24,7 +24,6 @@ export const QuizProvider = ({ children }) => {
         const res= await axios.get(`${API_URL}/quiz`)
         setAllQuiz(res.data)
         setAllQuizLoading(false)
-        console.log(res.data)
       }catch(err){console.log(err)}
     }
 
